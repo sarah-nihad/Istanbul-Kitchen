@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link ,NavLink} from 'react-router-dom'
-import Table1 from '../common/Table1';
+import Table1 from '../Table/Table1';
 import Mod1 from '../common/Mod1';
 
 class Section extends Component {

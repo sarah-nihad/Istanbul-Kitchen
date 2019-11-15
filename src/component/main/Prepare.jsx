@@ -3,7 +3,7 @@ import { Link ,NavLink} from 'react-router-dom'
 import Mod2 from '../common/Mod2';
 import Table2 from '../Table/Table2';
 
-class Material extends Component {
+class Prepare extends Component {
     render() {
         return (
             <div id='main_sec'  >
@@ -19,15 +19,15 @@ class Material extends Component {
 
 
                 <div style={{width:'100%'}} id='rightdiv' > 
-                    <NavLink  to='/Material'   activeClassName='active'> 
+                    <NavLink  to='/Prepare'   activeClassName='active'> 
                      <div id='sect1'>
-                        المواد
+                        التجهيز
                     </div>
                     </NavLink>
 
-                    <NavLink  to='/Section'   activeClassName='active'>  
+                    <NavLink  to='/Kitchen'  activeClassName='active'>  
                       <div id='sect1'>
-                        الاقسام
+                        المطابخ
                     </div>    
                        </NavLink>
                        </div>
@@ -40,4 +40,4 @@ class Material extends Component {
     }
 }
 
-export default Material;
+export default Prepare;

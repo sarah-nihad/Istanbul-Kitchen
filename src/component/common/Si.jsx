@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-
+import Prepare from '../main/Prepare';
 // import Context from '../Context';
 // import Login from '../login/login';
 import List from '@material-ui/core/List';
@@ -86,6 +86,9 @@ function rendertitile(props) {
       else  if (props.match.path === '/Dashboard') {
         return ( <div>  Dashboard   </div>)
       }
+         else  if (props.match.path === '/Prepare') {
+        return ( <div>  المطابخ   </div>)
+      }
 
 }
 
@@ -99,6 +102,7 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
+       display: 'flex',
     
     },
   },
@@ -111,7 +115,7 @@ const styles = theme => ({
   menuButton: {
     marginRight: 20,
     [theme.breakpoints.up('sm')]: {
-      display: 'none',
+      display: 'flex',
     },
   },
   toolbar: theme.mixins.toolbar,
@@ -176,7 +180,7 @@ class ResponsiveDrawer extends React.Component {
                    
                         <div id='ss'>
                     <div id='p1'>اسم المستخدم</div> 
-                     <Popover  
+                     <Popover  style={{zIndex:'1122'}}
               content={
                 <Pane
                   width={200}
@@ -185,6 +189,7 @@ class ResponsiveDrawer extends React.Component {
                   alignItems="center"
                   justifyContent="center"
                   flexDirection="column"
+                  zIndex="1101"
                 >
                 {/* <button  id='out' onClick={()=>{ 
                   cookies.remove("token");
@@ -423,7 +428,9 @@ const renderPage = (props) => {
   else if (props.match.path === '/Dashboard') {
     return (<Dashboard  />)
   }
- 
+   else if (props.match.path === '/Prepare') {
+    return (<Prepare  />)
+  }
 
  
 

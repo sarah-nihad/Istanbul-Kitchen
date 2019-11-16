@@ -211,14 +211,14 @@ export default function PersistentDrawerLeft(props) {
                 <div id='nav_title' >   {rendertitile(props)} </div>
                    
                         <div id='ss'>
-                                <Box display="flex">
+                             <Link to ='/Notification'>   <Box display="flex">
   <Box m={2}>
     <Badge badgeContent={99} color="primary">
-     <NotificationsIcon />
+     <NotificationsIcon  style={{color:'white'}} />
     </Badge>
   </Box>
 </Box>
-
+</Link>
                     <div id='p1'>اسم المستخدم</div> 
                      <Popover 
               content={

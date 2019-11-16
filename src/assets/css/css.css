@@ -1,10 +1,25 @@
 
-@media screen and (min-width: 700px) {
+#col_first{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 
+
+
+
+@media screen and (min-width: 700px) {
+    #se_r1{
+        width: 100%;
+    }
     #nav_title{
         font-size: 18px;
     }
-
+    #new {
+        width: 22%;
+    }
+    #main_row a{
+        width: 30%;}
     #ss{
         width: 215px;
     }
@@ -65,5 +80,12 @@ width: 90%;
 width: 70%;
 
     }
-
+    #main_row a{
+        width: 50%;}
+        #new {
+            width: 70%;
+        }
+        #se_r1{
+            width: 50%;
+        }
 }

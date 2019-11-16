@@ -13,7 +13,7 @@ class Kitchen extends Component {
 
                      <div style={{width:'100%'}}>
                     
-                    <AddKitchen />
+                  
                   
                  </div>
 

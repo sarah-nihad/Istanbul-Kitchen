@@ -10,7 +10,7 @@ class Section extends Component {
 
               <div id='main_row' >
 
-                     <div style={{width:'100%'}}>
+                     <div id='se_r1'>
                     
                     <Mod1 />
                   

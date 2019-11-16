@@ -146,7 +146,7 @@ a:hover{
 
 }
  #main_row a{
-    width: 30%;
+   
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -174,7 +174,6 @@ a:hover{
     border-radius: 10px;
     box-shadow: 0px 0px 6px #0080ff61;
     height: 40px;
-    width: 22%;
     background-color: #ffe600;
     color: #074684;
     margin-top: 3%;
@@ -380,4 +379,57 @@ color: #fff;
     padding-top: 5px;
     font-size: 16px;
 
+}
+
+#kitchen_field{
+    width: 70%;
+    border-radius: 4px;
+    box-shadow: 0px 0px 1px 2px #b4b1b1;
+    border: none;
+    height: 30px;
+    direction: rtl;
+    padding: 8px;
+}
+
+#div_kitch{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#kitchen_botn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+#done{
+    width: 65%;
+    height: 35px;
+    background-color: #ffe600;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #084e93;
+    box-shadow: 0px 0px 3px 1px #cacaca;
+}
+#add{
+    width: 40%;
+    height: 35px;
+    background-color: #ffe600;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #084e93;
+    margin-left: 10px;
+    box-shadow: 0px 0px 3px 1px #cacaca;
 }

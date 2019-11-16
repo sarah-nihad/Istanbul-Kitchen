@@ -20,11 +20,7 @@ class Users extends Component{
 
 
                 <div style={{width:'100%'}} id='rightdiv' > 
-                    {/* <NavLink  to='/Material'   activeClassName='active'> 
-                     <div id='sect1'>
-                        المواد
-                    </div>
-                    </NavLink> */}
+                
 
                     <NavLink  to='/Users'   activeClassName='active'>  
                       <div id='sect1'>

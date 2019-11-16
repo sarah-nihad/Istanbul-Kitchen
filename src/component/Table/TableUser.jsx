@@ -31,7 +31,7 @@ class TableUser extends React.Component {
 
     const data = [
       {
-        name: "Name 1",
+        name: " sarah  sarah sarah",
           depa: "Name 1",
           lece: "Name 1",
            pass: <EditPass />,

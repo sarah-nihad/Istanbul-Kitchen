@@ -10,7 +10,7 @@ class Section extends Component {
 
               <div id='main_row' >
 
-                     <div id='se_r1'>
+                     <div style={{width:'100%'}}>
                     
                     <Mod1 />
                   
@@ -19,15 +19,23 @@ class Section extends Component {
 
 
                 <div style={{width:'100%'}} id='rightdiv' > 
+
+   <NavLink  to='/Store'  activeClassName='active'>  
+                      <div id='sect1'>
+                        المخزون
+                    </div>    
+                       </NavLink>
+
+
                     <NavLink  to='/Material'   activeClassName='active'> 
                      <div id='sect1'>
-                        المواد
+                        المواد فقط
                     </div>
                     </NavLink>
 
                     <NavLink  to='/Section'   activeClassName='active'>  
                       <div id='sect1'>
-                        الاقسام
+                        الاصناف
                     </div>    
                        </NavLink>
                        </div>

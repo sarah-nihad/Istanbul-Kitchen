@@ -10,7 +10,7 @@ import Component from '@reactions/component';
     <Pane >
       <Dialog 
         isShown={state.isShown}
-        title="انشاء مستحدم جديد "
+        title=" "
         onCloseComplete={() => setState({ isShown: false })}
       hasHeader={false}
         shouldCloseOnOverlayClick={false}
@@ -35,21 +35,9 @@ import Component from '@reactions/component';
               <input type='text'id='field2' placeholder= ' المستخدم ' /> </div>             
 </div>
 
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >    عدد الاصناف   </div>
+    
 
-            <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' عدد الاصناف ' /> </div>             
-</div>
-
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   عدد القطع الكلية   </div>
-
-            <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' عدد القطع الكلية ' /> </div>             
-</div>
+     
 
             
         

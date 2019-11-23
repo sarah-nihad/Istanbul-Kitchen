@@ -15,7 +15,7 @@ class Login extends Component {
 
     }
 login(){
-
+window.location.href='/Dashboard';
     
 }
 
@@ -40,7 +40,7 @@ login(){
 
                 <div id='login_main'>
                   
-                    <img src={require('../../assets/img/Logo.png')} alt='img' style={{height:'140px'}} />
+                    <img src={require('../../assets/img/Logo.png')} alt='img' style={{height:'125px'}} />
 
                     <div style={{fontSize:22,lineHeight:'40px',color:'#707070',fontWeight:'bold'}} >مطبخ اسطنبول</div>
 

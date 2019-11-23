@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link ,NavLink} from 'react-router-dom'
-import Mod2 from '../common/Mod2';
-import Table2 from '../Table/Table2';
+import AddStore from '../common/AddStore';
+import TableStore from '../Table/TableStore';
 
-class Material extends Component {
+class Store extends Component {
     render() {
         return (
             <div id='main_sec'  >
@@ -12,7 +12,7 @@ class Material extends Component {
 
                      <div style={{width:'100%'}}>
                     
-                    <Mod2 />
+                    <AddStore />
                   
                  </div>
 
@@ -40,11 +40,11 @@ class Material extends Component {
                        </div>
                 </div>
 
-<Table2 />
+<TableStore />
 
             </div>
         );
     }
 }
 
-export default Material;
+export default Store;

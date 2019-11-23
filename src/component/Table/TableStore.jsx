@@ -2,20 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import EditUser from '../common/EditUser';
-import EditPass from '../common/EditPass';
-class TableUser extends React.Component {
+import EditStore from '../common/EditStore';
+
+class TableStore extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
  data:[],
   data2:[],
-  data3:[{name: "ssss", age: "55",body:'body'},
-{name: "يدات", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
+  data3:[
+      {name: "ssss", age: "55",body:'body',pass:'6'},
+{name: "يدات", age: "55",body:'body',pass:'6'},
+{name: "ssss", age: "55",body:'body',pass:'6'},
+{name: "ssss", age: "55",body:'body',pass:'6'},
+{name: "ssss", age: "55",body:'body',pass:'6'},
 {name: "ssss", age: "55",body:'body'},
 {name: "ssss", age: "55",body:'body'},
 {name: "ssss", age: "55",body:'body'},
@@ -48,9 +49,9 @@ let arr=[];
            name: this.state.data3[index].name,
           depa: this.state.data3[index].body,
           lece:  this.state.data3[index].age,
-           pass: <EditPass />,
+           pass:this.state.data3[index].pass,
         delete:<i className="far fa-trash-alt" id='del' ></i> ,
-        edit:<EditUser />
+        edit:<EditStore />
       }
       arr.push(obj)
       
@@ -68,32 +69,15 @@ let arr=[];
      
       { name: "حذف", field: "delete" },
       { name: "تعديل", field: "edit" },
-     { name: " كلمة المرور", field: "pass" },
-     { name: " الصلاحية ", field: "lece" },
-     { name: " القسم ", field: "depa" },
-     { name: " اسم المستخدم ", field: "name" },
+     { name: "  قيمة الاشعار", field: "pass" },
+     { name: " العدد المتوفر ", field: "lece" },
+     { name: " المخزن ", field: "depa" },
+     { name: " رمز المادة ", field: "name" },
     
     ];
 
     const data = [
-      {
-        name: " sarah",
-          depa: "Name 1",
-          lece: "Name 1",
-           pass: <EditPass />,
-        delete:<i className="far fa-trash-alt" id='del' ></i> ,
-        edit:<EditUser />,
-      
-      },
-      {
-        name: "Name 2",
-        depa: "Name 1",
-          lece: "Name 1",
-           pass: <EditPass />,
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit:<EditUser />,
-      
-      }
+     
     ];
 
   const options = {
@@ -150,5 +134,5 @@ let arr=[];
   }
 }
 
-ReactDOM.render(<TableUser />, document.getElementById("root"));
-export default TableUser ;
+ReactDOM.render(<TableStore />, document.getElementById("root"));
+export default TableStore ;

@@ -1,9 +1,9 @@
+
 import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import EditMat from '../common/EditMat';
-class Table2 extends React.Component {
+class StoresTable extends React.Component {
    getMuiTheme = () => createMuiTheme({
     overrides: {
      MuiPaper: {
@@ -19,30 +19,27 @@ class Table2 extends React.Component {
     
     const columns = [
      
-      { name: "حذف", field: "delete" },
-      { name: "تعديل", field: "edit" },
-     { name: " الصنف ", field: "type" },
-     { name: "رمز المادة ", field: "name" },
+      { name: "حذف", field: "title" },
+      { name: "تعديل", field: "location" },
+        { name: "  العنوان", field: "city", },
+       { name: "اسم المخزن", field: "name", },
     
+
     ];
 
     const data = [
       {
         name: "Name 1",
-        
-          type: "Name 1",
-        
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit:<EditMat />,
+         city: "baghdad",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location:<i class="fas fa-edit" id='edit' ></i>,
       
       },
       {
         name: "Name 2",
-         
-          type: "Name 1",
-         
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit: <EditMat />,
+         city: "babil",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location: <i class="fas fa-edit" id='edit' ></i>,
       
       }
     ];
@@ -52,11 +49,10 @@ class Table2 extends React.Component {
    print:false,
    rowCursorHand:false,
    sort:false,
-   responsive:'scroll',
    filter:false,
    textLabels: {
     body: {
-      noMatch: "  لم يتم العثور على سجلات مطابقة",
+      noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
       toolTip: "فرز",
     },
     pagination: {
@@ -89,12 +85,13 @@ class Table2 extends React.Component {
     return (
      <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable 
-        // title={"ACME Employee list"}
-         data={data} columns={columns} options={options} />
+     
+         data={data} columns={columns} options={options}  bordered striped  />
       </MuiThemeProvider>
     );
   }
 }
 
-ReactDOM.render(<Table2 />, document.getElementById("root"));
-export default Table2 ;
+ReactDOM.render(<StoresTable />, document.getElementById("root"));
+export default StoresTable ;
+

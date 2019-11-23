@@ -25,13 +25,15 @@ import Kitchen from '../main/Kitchen';
 import Prepare from '../main/Prepare';
 import Notification from '../main/Notification';
 import Dashboard from '../Dashboard/Dashboard';
+import User from '../Dashboard/User';
 import Material from '../main/Material';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
 import { Link ,NavLink} from 'react-router-dom'
 import { Navbar,Nav } from 'react-bootstrap';
 import { Popover, Pane, Avatar } from 'evergreen-ui';
-
+import Store from '../main/Store';
+import Stores from '../main/Stores';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -43,17 +45,20 @@ function rendertitile(props) {
     else  if (props.match.path === '/Users') {
         return ( <div>  المستخدمين  </div>)
       }
+         else  if (props.match.path === '/User') {
+        return ( <div>  المستخدمين  </div>)
+      }
 
       else  if (props.match.path === '/Kitchen') {
         return ( <div>  المطابخ  </div>)
       }
 
       else  if (props.match.path === '/Section') {
-        return ( <div>  المواد والاقسام  </div>)
+        return ( <div>  المواد والاصناف  </div>)
       }
 
       else  if (props.match.path === '/Material') {
-        return ( <div>  المواد والاقسام  </div>)
+        return ( <div>  المواد والاصناف  </div>)
       }
 
       else  if (props.match.path === '/Notification') {
@@ -66,7 +71,12 @@ function rendertitile(props) {
          else  if (props.match.path === '/Prepare') {
         return ( <div>  المطابخ   </div>)
       }
-
+     else  if (props.match.path === '/Store') {
+        return ( <div>  المخزون   </div>)
+      }
+     else  if (props.match.path === '/Stores') {
+        return ( <div>  المخازن   </div>)
+      }
 }
 
 
@@ -112,8 +122,8 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth,
       overflowY: 'visible',
-    backgroundColor:'#076acb',
-    color:'#fff'
+    backgroundColor:'#9bc2ef87',
+    color:'#757575'
   },
   drawerHeader: {
     display: 'flex',
@@ -158,7 +168,12 @@ export default function PersistentDrawerLeft(props) {
   if (props.match.path === '/Home') {
     return (<Home />)
   }
-
+  if (props.match.path === '/Dashboard') {
+    return (<Dashboard />)
+  }
+  else if (props.match.path === '/User') {
+    return (<User/>)
+  }
   else if (props.match.path === '/Users') {
     return (<Users/>)
   }
@@ -180,7 +195,12 @@ export default function PersistentDrawerLeft(props) {
    else if (props.match.path === '/Prepare') {
     return (<Prepare  />)
   }
- 
+   else if (props.match.path === '/Store') {
+    return (<Store  />)
+  }
+    else if (props.match.path === '/Stores') {
+    return (<Stores />)
+  }
 }
   return (
     <div className={classes.root}>
@@ -308,7 +328,18 @@ export default function PersistentDrawerLeft(props) {
 
                     <ListItem >
                     <img src={require('../../assets/img/section.png')} alt='img' id='side_img'  />
-                      <ListItemText ><span className='sspan' style={{fontWeight: '500',fontSize:'18px' }}>المواد والاقسام</span></ListItemText>
+                      <ListItemText ><span className='sspan' style={{fontWeight: '500',fontSize:'18px' }}>المواد والاصناف</span></ListItemText>
+                    </ListItem>
+
+                  </List>
+                </NavLink>
+
+                     <NavLink to='/Stores' activeClassName='active' >
+                  <List  className='sidefect' >
+
+                    <ListItem >
+                    <img src={require('../../assets/img/cart.png')} alt='img' id='side_img'  />
+                      <ListItemText ><span className='sspan' style={{fontWeight: '500',fontSize:'18px' }}> المخازن</span></ListItemText>
                     </ListItem>
 
                   </List>

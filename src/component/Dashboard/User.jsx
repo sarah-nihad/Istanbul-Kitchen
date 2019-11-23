@@ -1,13 +1,13 @@
-import React ,{Component}from 'react';
-import {Row,Col} from 'react-bootstrap';
+import React,{Component} from 'react';
+import { Row,Col} from 'react-bootstrap';
 import { Link ,NavLink} from 'react-router-dom';
+class User extends Component{
 
-class Dashboard extends Component{
     render(){
         return(
             <div id='cuthome' >
            
-              <Row style={{marginRight:0,width:'100%',display:'flex',justifyContent:'center'}} >
+               <Row style={{marginRight:0,width:'100%'}} id='row_dashnon'  >
                     <div id='col_dash'  >
                     <NavLink to='/User' activeClassName='is'  >
                     <div className='card'>
@@ -52,7 +52,7 @@ class Dashboard extends Component{
                                 <div className='col-9 text-center align-self-center'>
                                     <div className='m-l-10 '>
                                         <h5 className='mt-0'>562</h5>
-                                        <p className='mb-0'> الاقسام</p>
+                                        <p className='mb-0'>الاقسام </p>
                                     </div>
                                 </div>
                            
@@ -113,7 +113,7 @@ class Dashboard extends Component{
                                 <div className='col-9 text-center align-self-center'>
                                     <div className='m-l-10 '>
                                         <h5 className='mt-0'>562</h5>
-                                        <p className='mb-0'>المواد</p>
+                                        <p className='mb-0'>المواد </p>
                                     </div>
                                 </div>
                               
@@ -131,7 +131,7 @@ class Dashboard extends Component{
 
 
                       <div  id='col_dash'  >
-                    <NavLink to='/Usr' activeClassName='is-active'  >
+                    <NavLink to='/Ur' activeClassName='is-active'  >
                     <div className='card'>
                         <div className='card-body'>
                             <div className='search-type-arrow' id='search' > </div>
@@ -144,7 +144,7 @@ class Dashboard extends Component{
                                 <div className='col-9 text-center align-self-center'>
                                     <div className='m-l-10 '>
                                         <h5 className='mt-0'>562</h5>
-                                        <p className='mb-0'>المطابخ </p>
+                                        <p className='mb-0'> المطابخ</p>
                                     </div>
                                 </div>
                               
@@ -161,9 +161,17 @@ class Dashboard extends Component{
                     </div>
                 </Row>
 
+             
+
+
+
+
+
+
             </div>
+
+
         );
     }
 }
-
-export default Dashboard;
+export default User;

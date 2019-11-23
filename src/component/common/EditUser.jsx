@@ -53,7 +53,7 @@ import Component from '@reactions/component';
 
       <div onClick={() => setState({ isShown: true })}  >
       
-     <i class="fas fa-edit" id='edit' ></i>
+     <i className="fas fa-edit" id='edit' ></i>
       
       </div>
     </Pane>

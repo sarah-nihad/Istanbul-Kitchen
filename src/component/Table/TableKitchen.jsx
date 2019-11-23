@@ -24,7 +24,7 @@ class TableKitchen extends React.Component {
       { name: "تعديل", field: "edit" },
      { name: "  المستخدم", field: "user" },
      { name: " عدد القطع الكلية ", field: "num" },
-     { name: " عدد الاصناف ", field: "type" },
+    
      { name: "  رقم المطبخ ", field: "kitchen" },
     
     ];
@@ -32,19 +32,19 @@ class TableKitchen extends React.Component {
     const data = [
       {
         kitchen: "Name 1",
-          type: "Name 1",
+     
           num: "Name 1",
-           user: 'sarah',
-        delete:<i class="far fa-trash-alt" id='del' ></i> ,
+           user: 'rr',
+        delete:<i className="far fa-trash-alt" id='del' ></i> ,
         edit:<EditKitchen />,
       
       },
       {
         kitchen: "Name 1",
-          type: "Name 1",
+       
           num: "Name 1",
            user: 'sarah',
-        delete:<i class="far fa-trash-alt" id='del' ></i> ,
+        delete:<i className="far fa-trash-alt" id='del' ></i> ,
         edit:<EditKitchen />,
       
       }

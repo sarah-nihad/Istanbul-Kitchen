@@ -11,17 +11,19 @@ render() {
   return (
     <BrowserRouter>
   
-   <Route path exact='/' component={Login} />
+   <Route  exact path ='/' component={Login} />
   
     <Route path ='/Home' component={Nav2}   />
     <Route path ='/Users' component={Nav2}   />
+       <Route path ='/User' component={Nav2}   />
     <Route path ='/Kitchen' component={Nav2}   />
     <Route path ='/Section' component={Nav2}   />
     <Route path ='/Material' component={Nav2}   />
-  
+   <Route path ='/Dashboard' component={Nav2}   />
     <Route path ='/Notification' component={Nav2}   />
     <Route path ='/Prepare' component={Nav2}   />
- 
+  <Route path ='/Store' component={Nav2}   />
+    <Route path ='/Stores' component={Nav2}   />
     </BrowserRouter>
   );
 }}

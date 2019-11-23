@@ -42,7 +42,7 @@ import Component from '@reactions/component';
 
       <div onClick={() => setState({ isShown: true })}  >
       
-  <i class="fas fa-cog"></i>
+  <i className="fas fa-cog"></i>
       
       </div>
     </Pane>

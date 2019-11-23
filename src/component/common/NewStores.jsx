@@ -1,7 +1,9 @@
+
+
  import React from 'react';
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
- class EditKitchen extends React.Component{
+ class NewStores extends React.Component{
    render(){
      return(
        <div> 
@@ -10,7 +12,7 @@ import Component from '@reactions/component';
     <Pane >
       <Dialog 
         isShown={state.isShown}
-        title="انشاء مستحدم جديد "
+        title="انشاء قسم جديد "
         onCloseComplete={() => setState({ isShown: false })}
       hasHeader={false}
         shouldCloseOnOverlayClick={false}
@@ -18,31 +20,29 @@ import Component from '@reactions/component';
          cancelLabel="الغاء"
       >
           <div >
-        <div id='new_itemnav' >    تعديل المطبخ  </div>
+        <div id='new_itemnav' >   انشاء مخزن جديد </div>
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%'}} >  رقم المطبخ  </div> 
-        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder='  رقم المطبخ' />  </div>
+          <div style={{width:'30%'}} > اسم المخزن  </div> 
+        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' اسم المخزن' />  </div>
 </div>
         
 
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   المستخدم   </div>
-
+           <div style={{width:'30%'}} >  العنوان   </div>
             <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' المستخدم ' /> </div>             
+              <input type='text'id='field2' placeholder= ' العنوان' /> </div> 
 </div>
-
-    </div>
-
+        
+ </div>
           </div>
       </Dialog>
 
-      <div onClick={() => setState({ isShown: true })}   >
+      <div onClick={() => setState({ isShown: true })} id='new'  >
       
-        <i className="fas fa-edit" id='edit' ></i>
+      جديد 
       
       </div>
     </Pane>
@@ -53,4 +53,4 @@ import Component from '@reactions/component';
      );
    }
  }
- export default EditKitchen;
+ export default NewStores;

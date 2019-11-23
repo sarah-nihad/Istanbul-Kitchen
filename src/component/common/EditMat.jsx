@@ -36,22 +36,10 @@ import Component from '@reactions/component';
 </div>
 
 
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   قيمة الاشعار   </div>
-
-            <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' رقما ' /> </div>             
-</div>
+  
 
 
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >    العدد   </div>
-
-            <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' رقما ' /> </div>             
-</div>
+     
         
  </div>
           </div>
@@ -59,7 +47,7 @@ import Component from '@reactions/component';
 
       <div onClick={() => setState({ isShown: true })}   >
       
-    <i class="fas fa-edit" id='edit' ></i>
+    <i className="fas fa-edit" id='edit' ></i>
       
       </div>
     </Pane>

@@ -123,12 +123,12 @@ import Component from '@reactions/component';
          cancelLabel="الغاء"
       >
           <div >
-        <div id='new_itemnav' >   انشاء قسم جديد </div>
+        <div id='new_itemnav' >   انشاء صنف جديد </div>
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%'}} > اسم القسم  </div> 
-        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' اسم القسم' />  </div>
+          <div style={{width:'30%'}} > اسم الصنف  </div> 
+        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' اسم الصنف' />  </div>
 </div>
         
 

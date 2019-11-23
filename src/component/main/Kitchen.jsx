@@ -13,13 +13,16 @@ class Kitchen extends Component {
 
                      <div style={{width:'100%'}}>
                     
-                  
+                  <AddKitchen />
                   
                  </div>
 
 
 
                 <div style={{width:'100%'}} id='rightdiv' > 
+
+                  
+
                     <NavLink  to='/Prepare'   activeClassName='active'> 
                      <div id='sect1'>
                         التجهيز
@@ -31,6 +34,10 @@ class Kitchen extends Component {
                         المطابخ
                     </div>    
                        </NavLink>
+
+                       
+                   
+
                        </div>
                 </div>
 

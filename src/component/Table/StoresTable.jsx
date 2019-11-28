@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import StoresEdit from '../common/StoresEdit';
 class StoresTable extends React.Component {
    getMuiTheme = () => createMuiTheme({
     overrides: {
@@ -32,7 +33,7 @@ class StoresTable extends React.Component {
         name: "Name 1",
          city: "baghdad",
         title: <i class="far fa-trash-alt" id='del' ></i>,
-        location:<i class="fas fa-edit" id='edit' ></i>,
+        location: <StoresEdit />,
       
       },
       {
@@ -45,14 +46,15 @@ class StoresTable extends React.Component {
     ];
 
   const options = {
-    selectableRows:false,
+   selectableRows:false,
    print:false,
    rowCursorHand:false,
    sort:false,
+   responsive:'scroll',
    filter:false,
    textLabels: {
     body: {
-      noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
+      noMatch: "  لم يتم العثور على سجلات مطابقة",
       toolTip: "فرز",
     },
     pagination: {

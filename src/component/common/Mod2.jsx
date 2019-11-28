@@ -22,14 +22,14 @@ import Component from '@reactions/component';
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%'}} >  رمز المادة  </div> 
+          <div style={{width:'30%',textAlign:'center'}} >  رمز المادة  </div> 
         <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' رمز المادة ' />  </div>
 </div>
         
 
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   صنف   </div>
+           <div style={{width:'30%',textAlign:'center'}} >   صنف   </div>
 
             <div style={{width:'80%',textAlign:'center'}} >  
               <input type='text'id='field2' placeholder= ' صنف ' /> </div>             

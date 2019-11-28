@@ -93,6 +93,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import EditSection from "../common/EditSection";
 class Table1 extends React.Component {
    getMuiTheme = () => createMuiTheme({
     overrides: {
@@ -122,27 +123,56 @@ class Table1 extends React.Component {
         name: "Name 1",
          num: "11",
         title: <i class="far fa-trash-alt" id='del' ></i>,
-        location:<i class="fas fa-edit" id='edit' ></i>,
+        location:<EditSection />,
       
       },
       {
         name: "Name 2",
          num: "11",
         title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <i class="fas fa-edit" id='edit' ></i>,
+        location: <EditSection />,
       
-      }
+      },
+         {
+        name: "Name 2",
+         num: "11",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location: <EditSection />,
+      
+      },
+         {
+        name: "Name 2",
+         num: "11",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location: <EditSection />,
+      
+      },
+         {
+        name: "Name 2",
+         num: "11",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location: <EditSection />,
+      
+      },
+         {
+        name: "Name 2",
+         num: "11",
+        title: <i class="far fa-trash-alt" id='del' ></i>,
+        location: <EditSection />,
+      
+      },
     ];
 
-  const options = {
+   const options = {
     selectableRows:false,
    print:false,
+     responsive:'scroll',
    rowCursorHand:false,
    sort:false,
    filter:false,
    textLabels: {
     body: {
-      noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
+      noMatch: " لم يتم العثور على سجلات مطابقة",
       toolTip: "فرز",
     },
     pagination: {

@@ -89,7 +89,7 @@ let arr=[];
    filter:false,
    textLabels: {
     body: {
-      noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
+      noMatch: " لم يتم العثور على سجلات مطابقة",
       toolTip: "فرز",
     },
     pagination: {

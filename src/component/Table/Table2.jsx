@@ -4,6 +4,18 @@ import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import EditMat from '../common/EditMat';
 class Table2 extends React.Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      data:[],
+      data1:[
+        {name:'sara',id:'1'},
+         {name:'sara',id:'1'},
+          {name:'sara',id:'1'},
+      ],
+
+    }
+  }
    getMuiTheme = () => createMuiTheme({
     overrides: {
      MuiPaper: {
@@ -15,8 +27,26 @@ class Table2 extends React.Component {
     },
 
   })
+
+   componentDidMount(){ 
+let arr=[];
+for (let index = 0; index < this.state.data1.length; index++) {
+ let obj={
+   name:this.state.data1[index].name,
+   type:this.state.data1[index].id,
+  delete: <i className="far fa-trash-alt" id='del' ></i>,
+  edit:<EditMat />,
+ }
+  arr.push(obj)
+}
+this.setState({
+  data:arr
+})
+   }
+
   render() {
-    
+
+
     const columns = [
      
       { name: "حذف", field: "delete" },
@@ -26,27 +56,7 @@ class Table2 extends React.Component {
     
     ];
 
-    const data = [
-      {
-        name: "Name 1",
-        
-          type: "Name 1",
-        
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit:<EditMat />,
-      
-      },
-      {
-        name: "Name 2",
-         
-          type: "Name 1",
-         
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit: <EditMat />,
-      
-      }
-    ];
-
+  
   const options = {
     selectableRows:false,
    print:false,
@@ -90,7 +100,7 @@ class Table2 extends React.Component {
      <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable 
         // title={"ACME Employee list"}
-         data={data} columns={columns} options={options} />
+         data={this.state.data} columns={columns} options={options} />
       </MuiThemeProvider>
     );
   }

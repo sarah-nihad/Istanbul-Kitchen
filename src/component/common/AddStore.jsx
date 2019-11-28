@@ -1,8 +1,57 @@
  import React from 'react';
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
+import Select from 'react-select';
+
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'يدات', label: 'يدات' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: '1px dotted pink',
+    color: state.isSelected ? '#ffbf41e0' : 'blue',
+   
+  }),
+  control: () => ({
+     
+    direction: 'rtl',
+    textAlign: 'center',
+  display: 'flex',
+   
+  }),
+    singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+
+    return { ...provided, opacity, transition };
+  }
+}
  class AddStore extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+ data:[],
+  data2:[],
+ type:'',
+ num:'',
+ material:'',
+ number:22
+    }
+
+
+  }
+
+
+
    render(){
+
+        const { selectedOption } = this.state;
+
      return(
        <div> 
 <Component initialState={{ isShown: false }}    >
@@ -22,13 +71,16 @@ import Component from '@reactions/component';
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%'}} >  رمز المادة  </div> 
-        <div style={{width:'80%',textAlign:'center'}} >  
-          <select id='field2'  > 
-          <option >-</option>
-            <option >1</option>
-              <option >2</option>
-          </select>
+          <div style={{width:'30%',textAlign:'center'}} >  رمز المادة  </div> 
+        <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
+              <Select id='field2' placeholder='  رمز المادة '
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
           
            </div>
 </div>
@@ -36,14 +88,17 @@ import Component from '@reactions/component';
 
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   المخزن   </div>
+           <div style={{width:'30%',textAlign:'center'}} >   المخزن   </div>
 
-            <div style={{width:'80%',textAlign:'center'}} >  
-                  <select id='field2'  > 
-          <option >-</option>
-            <option >1</option>
-              <option >2</option>
-          </select>
+            <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
+              <Select id='field2' placeholder=' المخزن '
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
               
               
               </div>             
@@ -53,14 +108,17 @@ import Component from '@reactions/component';
              
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   العدد المتوفر   </div>
+           <div style={{width:'30%',textAlign:'center'}} >   العدد المتوفر   </div>
 
-            <div style={{width:'80%',textAlign:'center'}} >  
-                  <select id='field2'  > 
-          <option >-</option>
-            <option >1</option>
-              <option >2</option>
-          </select>
+             <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
+              <Select id='field2' placeholder=' العدد المتوفر   '
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
               
               
               </div>             
@@ -69,7 +127,7 @@ import Component from '@reactions/component';
 
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%'}} >   قيمة الاشعار   </div>
+           <div style={{width:'30%',textAlign:'center'}} >   قيمة الاشعار   </div>
 
             <div style={{width:'80%',textAlign:'center'}} >  
                   <input type ='text' id='field2' placeholder='قيمة الاشعار' /> 

@@ -1,7 +1,9 @@
+
+
  import React from 'react';
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
- class EditMat extends React.Component{
+ class StoresEdit extends React.Component{
    render(){
      return(
        <div> 
@@ -10,7 +12,7 @@ import Component from '@reactions/component';
     <Pane >
       <Dialog 
         isShown={state.isShown}
-        title="انشاء مستحدم جديد "
+    
         onCloseComplete={() => setState({ isShown: false })}
       hasHeader={false}
         shouldCloseOnOverlayClick={false}
@@ -18,36 +20,29 @@ import Component from '@reactions/component';
          cancelLabel="الغاء"
       >
           <div >
-        <div id='new_itemnav' >    تعديل المادة </div>
+        <div id='new_itemnav' >    تعديل  معلومات المخزن  </div>
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%',textAlign:'center'}} >  رمز المادة  </div> 
-        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' رمز المادة ' />  </div>
+          <div style={{width:'30%'}} > اسم المخزن  </div> 
+        <div style={{width:'80%',textAlign:'center'}} >    <input type='text'id='field2' placeholder=' اسم المخزن' />  </div>
 </div>
         
 
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   الصنف   </div>
-
+           <div style={{width:'30%'}} >  العنوان   </div>
             <div style={{width:'80%',textAlign:'center'}} >  
-              <input type='text'id='field2' placeholder= ' الصنف ' /> </div>             
+              <input type='text'id='field2' placeholder= ' العنوان' /> </div> 
 </div>
-
-
-  
-
-
-     
         
  </div>
           </div>
       </Dialog>
 
-      <div onClick={() => setState({ isShown: true })}   >
+      <div onClick={() => setState({ isShown: true })}  >
       
-    <i className="fas fa-edit" id='edit' ></i>
+     <i className="fas fa-edit" id='edit' ></i>
       
       </div>
     </Pane>
@@ -58,4 +53,4 @@ import Component from '@reactions/component';
      );
    }
  }
- export default EditMat;
+ export default StoresEdit;

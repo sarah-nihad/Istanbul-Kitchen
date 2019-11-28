@@ -2,8 +2,6 @@
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
 import Select from 'react-select';
-
-
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'يدات', label: 'يدات' },
@@ -30,8 +28,9 @@ const customStyles = {
     return { ...provided, opacity, transition };
   }
 }
- class EditStore extends React.Component{
 
+
+ class EditCard extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -48,18 +47,17 @@ const customStyles = {
 
 
 
+
    render(){
-
         const { selectedOption } = this.state;
-
      return(
        <div> 
-<Component initialState={{ isShown: false }}    >
+<Component initialState={{ isShown: false }} >
   {({ state, setState }) => (
     <Pane >
       <Dialog 
         isShown={state.isShown}
-    
+ 
         onCloseComplete={() => setState({ isShown: false })}
       hasHeader={false}
         shouldCloseOnOverlayClick={false}
@@ -67,13 +65,13 @@ const customStyles = {
          cancelLabel="الغاء"
       >
           <div >
-        <div id='new_itemnav' >     تعديل المخزون </div>
+        <div id='new_itemnav' >  تعديل المعلومات </div>
          <div className='mod1'>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%',textAlign:'center'}} >  رمز المادة  </div> 
-        <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder='  رمز المادة '
+          <div style={{width:'35%',textAlign:'center'}} >   الاصناف  </div> 
+        <div style={{width:'55%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
+         <Select  id='field2' placeholder='  اختر الصنف'
                                   onChange={(e) => {                               
                                       this.setState({ type: e.value })
                                   }}
@@ -88,10 +86,9 @@ const customStyles = {
 
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   المخزن   </div>
-
-            <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder=' المخزن '
+           <div style={{width:'35%',textAlign:'center'}} >   المواد  </div> 
+        <div style={{width:'55%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
+         <Select  id='field2' placeholder='  اختر المواد'
                                   onChange={(e) => {                               
                                       this.setState({ type: e.value })
                                   }}
@@ -99,38 +96,18 @@ const customStyles = {
                                   styles={customStyles}
                                   options={options}
                                 />
-              
-              
-              </div>             
+          
+           </div>
 </div>
+        
 
-
-             
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   العدد المتوفر   </div>
-
-             <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder=' العدد المتوفر   '
-                                  onChange={(e) => {                               
-                                      this.setState({ type: e.value })
-                                  }}
-                                 value={selectedOption}
-                                  styles={customStyles}
-                                  options={options}
-                                />
-              
-              
-              </div>             
-</div>
-  
 
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
         height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   قيمة الاشعار   </div>
+           <div style={{width:'35%',textAlign:'center'}} >  الكمية    </div>
 
-            <div style={{width:'80%',textAlign:'center'}} >  
-                  <input type ='text' id='field2' placeholder='قيمة الاشعار' /> 
+            <div style={{width:'55%',textAlign:'center'}} >  
+                  <input type ='text' id='field2' placeholder='الكمية ' /> 
           
               
               
@@ -144,7 +121,7 @@ const customStyles = {
 
       <div onClick={() => setState({ isShown: true })}   >
       
-     <i className="fas fa-edit" id='edit' ></i>
+    <i className="fas fa-edit" id='edit' ></i>
       
       </div>
     </Pane>
@@ -155,4 +132,4 @@ const customStyles = {
      );
    }
  }
- export default EditStore;
+ export default EditCard;

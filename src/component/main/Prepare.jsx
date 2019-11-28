@@ -9,6 +9,38 @@ import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Select from 'react-select';
+import EditCard from '../common/EditCard';
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'يدات', label: 'يدات' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: '1px dotted pink',
+    color: state.isSelected ? '#ffbf41e0' : 'blue',
+   
+  }),
+  control: () => ({
+     
+       borderRadius: '4px',
+    boxShadow:' 0px 0px 1px 2px #b4b1b1',
+    border: 'none',
+    height: '33px',
+    direction: 'rtl',
+    textAlign: 'center',
+  display: 'flex',
+   
+  }),
+    singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+
+    return { ...provided, opacity, transition };
+  }
+}
 class Prepare extends React.Component {
 
   constructor(props) {
@@ -72,6 +104,7 @@ del(index){
   })
 
     render() {
+      const { selectedOption } = this.state;
         return (
             <div id='main_sec'  >
 <ToastContainer
@@ -128,19 +161,26 @@ pauseOnHover
 
 {this.state.data2.map(p => (
 
-<div id='noti_first'>
-<div id='noti_titil' >
-<div id='not_text' >  الصنف : <span> {p.type}  </span>   </div>
-<div>  <CloseIcon style={{color:'red'}}  onClick={()=> {this.del()}} />  </div>
-</div>
-<div className='noti_body'>
-<div id='noti_body'>
-اقتربت المادة للنفاذ من المخزن
-العدد المتبقي هو
-</div>
+<div id='card_main1'  >
+<div id='card_titil'>
+
+<div style={{fontSize:15,color:'#256197'}} ><i className="far fa-trash-alt" id='del' ></i> </div>
+<div style={{paddingLeft:10}} > <EditCard /></div>
+
 </div>
 
-<div style={{padding:10,fontSize:15}} > 2018-7-7 10:05  </div>
+<div id='card_info'>
+<div id='item_text' >  <div> : الصنف </div> <div style={{paddingRight:8}} > {p.type}</div> </div>
+{/* <div id='item_textm1'  > المواد <div id='line' /> </div> */}
+
+<div id='item_text' >  <div> : رمز المادة </div> <div style={{paddingRight:8}} > {p.material}</div> </div>
+<div id='item_text' >  <div> :  عدد القطع </div> <div style={{paddingRight:8}} > {p.num}</div> </div>
+
+<div id='item_text' >  <div> :   اسم المستخدم </div> <div style={{paddingRight:8}} > {p.num}</div> </div>
+ <div id='item_text'style={{width:'92%',display:'flex',justifyContent:'space-between'}}  >  <div> :    تاريخ الاضافة </div>  <div style={{fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div> </div>
+</div>
+
+
 
 </div>
 
@@ -160,36 +200,59 @@ pauseOnHover
                  <div id='div_kitch' > 
                  
                  <div id='kitch_sid' >  رقم المطبخ   </div>
-                      <select  id='kitchen_field' >
-              <option value='1'>-</option>
-                 <option value='1'>1</option>
-              </select>  </div>
+                  <Select id='kitchen_field' placeholder='اختر رقم المطبخ'
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
+              
+              </div>
           
                
                <p style={{fontSize:'20px',fontWeight:'600',color:'gray'}} > الاضافات </p>
 
-
+      <div id='div_kitch' > 
+          <div id='kitch_sid' >  المخازن      </div>
+         
+                 <Select id='kitchen_field' placeholder='اختر المخزن'
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
+              
+               </div>
         <div id='div_kitch' > 
           <div id='kitch_sid' >  الاصناف      </div>
-           <select  id='kitchen_field' value={this.state.type} onChange={(e)=> {
-             this.setState({type:e.target.value})
-           }} >
-              <option >-</option>
-                 <option >يدات</option>
-                   <option >براغي</option>
-                     <option >22</option>
-              </select>  </div>
+         
+                 <Select id='kitchen_field' placeholder='اختر الصنف'
+                                  onChange={(e) => {                               
+                                      this.setState({ type: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
+              
+               </div>
                
                 <div id='div_kitch' > 
                   <div id='kitch_sid' >  المواد     </div>
-                    <select  id='kitchen_field'  value={this.state.material} onChange={(e) =>{
-                      this.setState({material:e.target.value})
-                    } }  >
-              <option value='-'>-</option>
-                 <option value='1'>1</option>
-                  <option value='2'>2</option>
-                   <option value='3'>3</option>
-              </select>  </div>
+          
+              <Select id='kitchen_field' placeholder='اختر المواد'
+                                  onChange={(e) => {                               
+                                      this.setState({ material: e.value })
+                                  }}
+                                 value={selectedOption}
+                                  styles={customStyles}
+                                  options={options}
+                                />
+               </div>
 
 
                  <div id='div_kitch' > 
@@ -206,7 +269,7 @@ pauseOnHover
                <div id='kitchen_botn'  >
 
               
-               <div id='done'  >  تم </div>
+              
                 <div   id='add'  onClick={()=> {this.add()}}  >  اضافة </div>
                </div>
 

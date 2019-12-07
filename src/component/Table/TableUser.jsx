@@ -1,14 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
+import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import EditUser from '../common/EditUser';
 import EditPass from '../common/EditPass';
+import axios from "axios";
+import Cookies from "universal-cookie";
+import Host from "../../assets/js/Host";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const cookies = new Cookies();
 class TableUser extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
+      status:true,
  data:[],
   data2:[],
   data3:[{name: "ssss", age: "55",body:'body'},
@@ -40,26 +49,51 @@ class TableUser extends React.Component {
 
   })
   
+
   componentDidMount(){
 
-let arr=[];
-    for (let index = 0; index < this.state.data3.length; index++) {
-      let obj={
-           name: this.state.data3[index].name,
-          depa: this.state.data3[index].body,
-          lece:  this.state.data3[index].age,
-           pass: <EditPass />,
-        delete:<i className="far fa-trash-alt" id='del' ></i> ,
-        edit:<EditUser />
+  axios
+    .get(Host + "users", {
+      headers: {
+        Authorization: cookies.get("token"),
+        Accept: "application/json"
       }
-      arr.push(obj)
+    })
+    .then(res => {
+      this.setState({
+        data: res.data
+      });
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log("error:" , err);
+    });
+
+}
+
+// let arr=[];
+//     for (let index = 0; index < this.state.data3.length; index++) {
+//       let obj={
+//            name: this.state.data3[index].name,
+//           depa: this.state.data3[index].body,
+//           lece:  this.state.data3[index].age,
+//            pass: <EditPass />,
+//            status: this.state.status === true ? (
+//              <DoneIcon  style={{color:'#5bb061',fontSize:30}}  />
+//            ):(
+//               <CloseIcon  style={{color:'rgb(169, 16, 16)',fontSize:30}} />
+//            ),
+//         delete:<i className="far fa-trash-alt" id='del' ></i> ,
+//         edit:<EditUser />
+//       }
+//       arr.push(obj)
       
-    }
-   this.setState({
-     data:arr
-   })
+//     }
+//    this.setState({
+//      data:arr
+//    })
     
-  }
+  
 
 
   render() {
@@ -68,6 +102,7 @@ let arr=[];
      
       { name: "حذف", field: "delete" },
       { name: "تعديل", field: "edit" },
+        { name: "الحالة", field: "status" },
      { name: " كلمة المرور", field: "pass" },
      { name: " الصلاحية ", field: "lece" },
      { name: " القسم ", field: "depa" },
@@ -105,7 +140,7 @@ let arr=[];
    filter:false,
    textLabels: {
     body: {
-      noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
+      noMatch: " لم يتم العثور على سجلات مطابقة",
       toolTip: "فرز",
     },
     pagination: {
@@ -136,15 +171,15 @@ let arr=[];
 }
 
     return (
-      // <div style={{width:'100%'}} >
+   
     
      
        <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable 
-        // title={"ACME Employee list"}
+     
          data={this.state.data} columns={columns} options={options} />
       </MuiThemeProvider>
-      // </div>
+
     
     );
   }

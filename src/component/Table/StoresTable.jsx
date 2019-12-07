@@ -31,17 +31,15 @@ class StoresTable extends React.Component {
     const data = [
       {
         name: "Name 1",
-         city: "baghdad",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <StoresEdit />,
-      
+        city: "baghdad",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <StoresEdit />
       },
       {
         name: "Name 2",
-         city: "babil",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <i class="fas fa-edit" id='edit' ></i>,
-      
+        city: "babil",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <i className="fas fa-edit" id="edit"></i>
       }
     ];
 

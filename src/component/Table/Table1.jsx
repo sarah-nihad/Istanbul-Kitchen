@@ -121,46 +121,40 @@ class Table1 extends React.Component {
     const data = [
       {
         name: "Name 1",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location:<EditSection />,
-      
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
       },
       {
         name: "Name 2",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <EditSection />,
-      
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
       },
-         {
+      {
         name: "Name 2",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <EditSection />,
-      
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
       },
-         {
+      {
         name: "Name 2",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <EditSection />,
-      
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
       },
-         {
+      {
         name: "Name 2",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <EditSection />,
-      
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
       },
-         {
+      {
         name: "Name 2",
-         num: "11",
-        title: <i class="far fa-trash-alt" id='del' ></i>,
-        location: <EditSection />,
-      
-      },
+        num: "11",
+        title: <i className="far fa-trash-alt" id="del"></i>,
+        location: <EditSection />
+      }
     ];
 
    const options = {

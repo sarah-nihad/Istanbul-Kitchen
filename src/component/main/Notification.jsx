@@ -29,7 +29,7 @@ class Notification extends Component{
 <div id='noti_first'>
 <div id='noti_titil' >
 <div id='not_text' > تحذير : نفاذ الكمية </div>
-<div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div>
+{/* <div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div> */}
 </div>
 <div className='noti_body'>
 <div id='noti_body'>
@@ -49,7 +49,7 @@ class Notification extends Component{
 <div id='noti_first'>
 <div id='noti_titil' >
 <div id='not_text' > تحذير : نفاذ الكمية </div>
-<div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div>
+{/* <div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div> */}
 </div>
 <div className='noti_body'>
 <div id='noti_body'>
@@ -68,7 +68,7 @@ class Notification extends Component{
 <div id='noti_first'>
 <div id='noti_titil' >
 <div id='not_text' > تحذير : نفاذ الكمية </div>
-<div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div>
+{/* <div style={{padding:10,fontSize:15,color:'#256197'}} > 2018-7-7 10:05  </div> */}
 </div>
 <div className='noti_body'>
 <div id='noti_body'>

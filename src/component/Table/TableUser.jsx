@@ -17,22 +17,23 @@ class TableUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status:true,
- data:[],
-  data2:[],
-  data3:[{name: "ssss", age: "55",body:'body'},
-{name: "يدات", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-{name: "ssss", age: "55",body:'body'},
-
-],
- name:'ssss',
- num:''
-    }
+      verified: '',
+      data: [],
+      data5: [],
+      uss: [],
+      data3: [
+        { name: "ssss", age: "55", body: "body" },
+        { name: "يدات", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" },
+        { name: "ssss", age: "55", body: "body" }
+      ],
+      name: "ssss",
+      num: ""
+    };
 
 
   }
@@ -61,39 +62,44 @@ class TableUser extends React.Component {
     })
     .then(res => {
       this.setState({
-        data: res.data
+        uss: res.data.data
       });
-      console.log(res.data);
+      // console.log(this.state.uss);
+        let arr = [];
+        for (let index = 0; index < this.state.uss.length; index++) {
+          let obj = {
+            name: this.state.uss[index].name,
+            depa: this.state.uss[index].dept.name,
+            lece: this.state.uss[index].role.name,
+            pass: <EditPass />,
+            status:
+              this.state.uss[index].status == 1 ? (
+                <DoneIcon style={{ color: "#5bb061", fontSize: 30 }} />
+              ) : (
+                <CloseIcon
+                  style={{ color: "rgb(169, 16, 16)", fontSize: 30 }}
+                />
+              ),
+
+            delete: <i className="far fa-trash-alt" id="del"></i>,
+            edit: <EditUser />
+          };
+          arr.push(obj);
+        }
+        this.setState({
+          data: arr
+        });
     })
     .catch(err => {
-      console.log("error:" , err);
+      console.log("error:", err);
     });
 
-}
 
-// let arr=[];
-//     for (let index = 0; index < this.state.data3.length; index++) {
-//       let obj={
-//            name: this.state.data3[index].name,
-//           depa: this.state.data3[index].body,
-//           lece:  this.state.data3[index].age,
-//            pass: <EditPass />,
-//            status: this.state.status === true ? (
-//              <DoneIcon  style={{color:'#5bb061',fontSize:30}}  />
-//            ):(
-//               <CloseIcon  style={{color:'rgb(169, 16, 16)',fontSize:30}} />
-//            ),
-//         delete:<i className="far fa-trash-alt" id='del' ></i> ,
-//         edit:<EditUser />
-//       }
-//       arr.push(obj)
-      
-//     }
-//    this.setState({
-//      data:arr
-//    })
+
+
+
     
-  
+  }
 
 
   render() {
@@ -110,27 +116,7 @@ class TableUser extends React.Component {
     
     ];
 
-    const data = [
-      {
-        name: " sarah",
-          depa: "Name 1",
-          lece: "Name 1",
-           pass: <EditPass />,
-        delete:<i className="far fa-trash-alt" id='del' ></i> ,
-        edit:<EditUser />,
-      
-      },
-      {
-        name: "Name 2",
-        depa: "Name 1",
-          lece: "Name 1",
-           pass: <EditPass />,
-        delete: <i className="far fa-trash-alt" id='del' ></i>,
-        edit:<EditUser />,
-      
-      }
-    ];
-
+  
   const options = {
     selectableRows:false,
    print:false,
@@ -171,19 +157,21 @@ class TableUser extends React.Component {
 }
 
     return (
-   
-    
-     
-       <MuiThemeProvider theme={this.getMuiTheme()}>
-        <MaterialDatatable 
-     
-         data={this.state.data} columns={columns} options={options} />
-      </MuiThemeProvider>
-
-    
+      <div>
+        {/* {this.state.data.map((item, i) => (
+          <p>{item.role.name}</p>
+        ))} */}
+        <MuiThemeProvider theme={this.getMuiTheme()}>
+          <MaterialDatatable
+            data={this.state.data}
+            columns={columns}
+            options={options}
+          />
+        </MuiThemeProvider>
+      </div>
     );
   }
 }
 
-ReactDOM.render(<TableUser />, document.getElementById("root"));
+// ReactDOM.render(<TableUser />, document.getElementById("root"));
 export default TableUser ;

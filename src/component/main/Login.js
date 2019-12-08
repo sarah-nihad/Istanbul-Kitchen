@@ -33,9 +33,9 @@ class Login extends Component {
 
       })
         .then(response => {
-          // window.location.href = "/Dashboard";
-           
-          cookies.set("token",response.data.success.token
+          window.location.href = "/Dashboard";
+           let token="Bearer "+response.data.success.token
+          cookies.set("token",token
           , {
             
             path: "/",
@@ -47,7 +47,7 @@ class Login extends Component {
         })
         .catch(function(err) {
           if (err.response.data.Error) {
-            toast.error('تأكد من ادخال')
+            toast.error('تأكد من ادخال المعلومات')
           }
           console.log(err.response.data.Error);
           

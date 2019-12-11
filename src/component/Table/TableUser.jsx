@@ -11,6 +11,10 @@ import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect} from 'react-router-dom';
+import Lottie from 'lottie-react-web';
+import animation from '../../assets/js/animation.json';
+import Context from '../../assets/js/context';
 const cookies = new Cookies();
 class TableUser extends React.Component {
   
@@ -21,21 +25,8 @@ class TableUser extends React.Component {
       data: [],
       data5: [],
       uss: [],
-      data3: [
-        { name: "ssss", age: "55", body: "body" },
-        { name: "يدات", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" },
-        { name: "ssss", age: "55", body: "body" }
-      ],
-      name: "ssss",
-      num: ""
+      check:''
     };
-
-
   }
 
    getMuiTheme = () => createMuiTheme({
@@ -62,7 +53,8 @@ class TableUser extends React.Component {
     })
     .then(res => {
       this.setState({
-        uss: res.data.data
+        uss: res.data.data,
+        check:'login',
       });
       // console.log(this.state.uss);
         let arr = [];
@@ -71,18 +63,17 @@ class TableUser extends React.Component {
             name: this.state.uss[index].name,
             depa: this.state.uss[index].dept.name,
             lece: this.state.uss[index].role.name,
-            pass: <EditPass />,
+            pass: <EditPass ids={this.state.uss[index].id}  />,
             status:
               this.state.uss[index].status == 1 ? (
-                <DoneIcon style={{ color: "#5bb061", fontSize: 30 }} />
+                <DoneIcon style={{ color: "#5bb061", fontSize: 30,cursor:'pointer' }} onClick={()=>{this.done(this.state.uss[index].id)}}  />
               ) : (
                 <CloseIcon
-                  style={{ color: "rgb(169, 16, 16)", fontSize: 30 }}
-                />
+                  style={{ color: "rgb(169, 16, 16)", fontSize: 30,cursor:'pointer' }} onClick={()=>{this.block(this.state.uss[index].id)}} />
               ),
 
-            delete: <i className="far fa-trash-alt" id="del"></i>,
-            edit: <EditUser />
+            delete: <i className="far fa-trash-alt" id="del" onClick={()=>{this.delete(this.state.uss[index].id) }}></i>,
+            edit: <EditUser   ids={this.state.uss[index].id} />
           };
           arr.push(obj);
         }
@@ -92,15 +83,91 @@ class TableUser extends React.Component {
     })
     .catch(err => {
       console.log("error:", err);
-    });
-
-
-
-
-
-    
+          this.setState({
+        check:'notlogin',
+      });
+    }); 
   }
 
+    done(id){
+     var headers = {
+       Authorization: cookies.get("token")
+     };
+     axios({
+       url: Host + `auth/block/${id}`,
+       method: "PUT",
+       headers: headers,
+       data:{
+       status:'0',
+    
+       },
+     })
+         .then(response => {
+           toast.success("تم حظر المستخدم");
+         this.componentDidMount();
+         
+         })
+         .catch(function(error) {
+           if (error.response.data.Error) {
+             toast.error(error.response.data.Error);
+           }
+         });
+}
+
+
+ block(id){
+     var headers = {
+       Authorization: cookies.get("token")
+     };
+     axios({
+       url: Host + `auth/block/${id}`,
+       method: "PUT",
+       headers: headers,
+       data:{
+       status:'1',
+    
+       },
+     })
+         .then(response => {
+           toast.success("تم تفعيل المستخدم");
+         this.componentDidMount();
+         
+         })
+         .catch(function(error) {
+           if (error.response.data.Error) {
+             toast.error(error.response.data.Error);
+           }
+         });
+}
+
+delete(id){
+ let formData = new FormData();
+    var headers = {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("token")
+    };
+  axios({
+    url: Host + `users/${id}`,
+    method: "DELETE",
+    data: formData,
+    headers: headers
+  })
+    .then(response => {
+  if (response.status === 202){
+        toast.warning(' لا يمكنك الحذف  ')
+    }
+    else if(response.status === 200){
+          this.componentDidMount();
+      toast.success(' تم الحذف بنجاح ')
+    } 
+  
+    })
+    .catch(function(err) {
+      
+          console.log(err.response.data.Error);
+          
+        });
+}
 
   render() {
     
@@ -157,10 +224,28 @@ class TableUser extends React.Component {
 }
 
     return (
-      <div>
-        {/* {this.state.data.map((item, i) => (
-          <p>{item.role.name}</p>
-        ))} */}
+
+     <Context.Consumer>{ctx => {
+
+
+        if (this.state.check==="notlogin") {
+          return(
+        <Redirect to="/"></Redirect>
+          )
+        }else if (this.state.check==="login") {
+          return (
+      <div style={{width:'100%',display:'flex',justifyContent:'center'}} >
+            <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar
+newestOnTop
+closeOnClick
+rtl
+pauseOnVisibilityChange
+draggable
+pauseOnHover
+/>
         <MuiThemeProvider theme={this.getMuiTheme()}>
           <MaterialDatatable
             data={this.state.data}
@@ -169,9 +254,32 @@ class TableUser extends React.Component {
           />
         </MuiThemeProvider>
       </div>
+        
+          )
+        }else if (this.state.check==="") {
+          return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }
+    
+      }}
+
+      </Context.Consumer>
+
+
+       
     );
   }
 }
 
-// ReactDOM.render(<TableUser />, document.getElementById("root"));
+
 export default TableUser ;

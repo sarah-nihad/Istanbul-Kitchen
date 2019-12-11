@@ -2,7 +2,8 @@
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
 import Select from 'react-select';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -52,106 +53,182 @@ const customStyles = {
 
         const { selectedOption } = this.state;
 
-     return(
-       <div> 
-<Component initialState={{ isShown: false }}    >
-  {({ state, setState }) => (
-    <Pane >
-      <Dialog 
-        isShown={state.isShown}
-    
-        onCloseComplete={() => setState({ isShown: false })}
-      hasHeader={false}
-        shouldCloseOnOverlayClick={false}
-         confirmLabel=" حفظ"
-         cancelLabel="الغاء"
-      >
-          <div >
-        <div id='new_itemnav' >    اضافة مخزون جديد </div>
-         <div className='mod1'>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-          <div style={{width:'30%',textAlign:'center'}} >  رمز المادة  </div> 
-        <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder='  رمز المادة '
-                                  onChange={(e) => {                               
-                                      this.setState({ type: e.value })
-                                  }}
-                                 value={selectedOption}
-                                  styles={customStyles}
-                                  options={options}
-                                />
-          
-           </div>
-</div>
-        
+     return (
+       <div>
+         <ToastContainer
+           position="top-center"
+           autoClose={5000}
+           hideProgressBar
+           newestOnTop
+           closeOnClick
+           rtl
+           pauseOnVisibilityChange
+           draggable
+           pauseOnHover
+         />
+         <Component initialState={{ isShown: false }}>
+           {({ state, setState }) => (
+             <Pane>
+               <Dialog
+                 isShown={state.isShown}
+                 onCloseComplete={() => setState({ isShown: false })}
+                 hasHeader={false}
+                 shouldCloseOnOverlayClick={false}
+                 confirmLabel=" حفظ"
+                 cancelLabel="الغاء"
+               >
+                 <div>
+                   <div id="new_itemnav"> اضافة مخزون جديد </div>
+                   <div className="mod1">
+                     <div
+                       style={{
+                         display: "flex",
+                         alignItems: "center",
+                         justifyContent: "space-around",
+                         height: "60px",
+                         direction: "rtl",
+                         fontWeight: "600",
+                         fontSize: "18px",
+                         width: "100%"
+                       }}
+                     >
+                       <div style={{ width: "30%", textAlign: "center" }}>
+                         {" "}
+                         رمز المادة{" "}
+                       </div>
+                       <div
+                         style={{
+                           width: "80%",
+                           textAlign: "center",
+                           display: "flex",
+                           justifyContent: "center"
+                         }}
+                       >
+                         <Select
+                           id="field2"
+                           placeholder="  رمز المادة "
+                           onChange={e => {
+                             this.setState({ type: e.value });
+                           }}
+                           value={selectedOption}
+                           styles={customStyles}
+                           options={options}
+                         />
+                       </div>
+                     </div>
 
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   المخزن   </div>
+                     <div
+                       style={{
+                         display: "flex",
+                         alignItems: "center",
+                         justifyContent: "space-around",
+                         height: "60px",
+                         direction: "rtl",
+                         fontWeight: "600",
+                         fontSize: "18px",
+                         width: "100%"
+                       }}
+                     >
+                       <div style={{ width: "30%", textAlign: "center" }}>
+                         {" "}
+                         المخزن{" "}
+                       </div>
 
-            <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder=' المخزن '
-                                  onChange={(e) => {                               
-                                      this.setState({ type: e.value })
-                                  }}
-                                 value={selectedOption}
-                                  styles={customStyles}
-                                  options={options}
-                                />
-              
-              
-              </div>             
-</div>
+                       <div
+                         style={{
+                           width: "80%",
+                           textAlign: "center",
+                           display: "flex",
+                           justifyContent: "center"
+                         }}
+                       >
+                         <Select
+                           id="field2"
+                           placeholder=" المخزن "
+                           onChange={e => {
+                             this.setState({ type: e.value });
+                           }}
+                           value={selectedOption}
+                           styles={customStyles}
+                           options={options}
+                         />
+                       </div>
+                     </div>
 
+                     <div
+                       style={{
+                         display: "flex",
+                         alignItems: "center",
+                         justifyContent: "space-around",
+                         height: "60px",
+                         direction: "rtl",
+                         fontWeight: "600",
+                         fontSize: "18px",
+                         width: "100%"
+                       }}
+                     >
+                       <div style={{ width: "30%", textAlign: "center" }}>
+                         {" "}
+                         العدد المتوفر{" "}
+                       </div>
 
-             
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   العدد المتوفر   </div>
+                       <div
+                         style={{
+                           width: "80%",
+                           textAlign: "center",
+                           display: "flex",
+                           justifyContent: "center"
+                         }}
+                       >
+                         <Select
+                           id="field2"
+                           placeholder=" العدد المتوفر   "
+                           onChange={e => {
+                             this.setState({ type: e.value });
+                           }}
+                           value={selectedOption}
+                           styles={customStyles}
+                           options={options}
+                         />
+                       </div>
+                     </div>
 
-             <div style={{width:'80%',textAlign:'center',display:'flex',justifyContent:'center'}} >  
-              <Select id='field2' placeholder=' العدد المتوفر   '
-                                  onChange={(e) => {                               
-                                      this.setState({ type: e.value })
-                                  }}
-                                 value={selectedOption}
-                                  styles={customStyles}
-                                  options={options}
-                                />
-              
-              
-              </div>             
-</div>
-  
+                     <div
+                       style={{
+                         display: "flex",
+                         alignItems: "center",
+                         justifyContent: "space-around",
+                         height: "60px",
+                         direction: "rtl",
+                         fontWeight: "600",
+                         fontSize: "18px",
+                         width: "100%"
+                       }}
+                     >
+                       <div style={{ width: "30%", textAlign: "center" }}>
+                         {" "}
+                         قيمة الاشعار{" "}
+                       </div>
 
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-around',
-        height:'60px',direction:'rtl',fontWeight:'600',fontSize:'18px',width:'100%'}} >
-           <div style={{width:'30%',textAlign:'center'}} >   قيمة الاشعار   </div>
+                       <div style={{ width: "80%", textAlign: "center" }}>
+                         <input
+                           type="text"
+                           id="field2"
+                           placeholder="قيمة الاشعار"
+                         />
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </Dialog>
 
-            <div style={{width:'80%',textAlign:'center'}} >  
-                  <input type ='text' id='field2' placeholder='قيمة الاشعار' /> 
-          
-              
-              
-              </div>             
-</div>
-      
-        
- </div>
-          </div>
-      </Dialog>
-
-      <div onClick={() => setState({ isShown: true })} id='new'   >
-      
-    جديد
-      
-      </div>
-    </Pane>
-  )}
-</Component>
-
-</div>
+               <div onClick={() => setState({ isShown: true })} id="new">
+                 جديد
+               </div>
+             </Pane>
+           )}
+         </Component>
+       </div>
      );
    }
  }

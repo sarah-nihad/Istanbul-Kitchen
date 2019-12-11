@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "evergreen-ui": "^4.15.0",
+    "lottie-react-web": "^2.1.4",
     "material-datatable": "^0.4.0",
     "mdbreact": "^4.22.0",
     "node-sass": "^4.13.0",

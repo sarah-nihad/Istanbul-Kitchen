@@ -21,6 +21,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Home from '../main/Home';
 import Users from '../main/Users';
 import Section from '../main/Sections';
+import Department from '../main/Department';
 import Kitchen from '../main/Kitchen';
 import Prepare from '../main/Prepare';
 import Notification from '../main/Notification';
@@ -34,6 +35,10 @@ import { Navbar,Nav } from 'react-bootstrap';
 import { Popover, Pane, Avatar } from 'evergreen-ui';
 import Store from '../main/Store';
 import Stores from '../main/Stores';
+import { Redirect} from 'react-router-dom';
+import Lottie from 'lottie-react-web';
+import animation from '../../assets/js/animation.json';
+import Context from '../../assets/js/context';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -76,6 +81,9 @@ function rendertitile(props) {
       }
      else  if (props.match.path === '/Stores') {
         return ( <div>  المخازن   </div>)
+      }
+       else  if (props.match.path === '/Department') {
+        return ( <div>  الاقسام   </div>)
       }
 }
 
@@ -201,9 +209,22 @@ export default function PersistentDrawerLeft(props) {
     else if (props.match.path === '/Stores') {
     return (<Stores />)
   }
+     else if (props.match.path === '/Department') {
+    return (<Department />)
+  }
 }
   return (
-    <div className={classes.root}>
+
+   <Context.Consumer>{ctx => {
+
+
+        if (ctx.value.che==="notlogin") {
+          return(
+        <Redirect to="/"></Redirect>
+          )
+        }else if (ctx.value.che==="login") {
+          return (
+      <div className={classes.root}>
       <CssBaseline />
       <AppBar  id='abr'
         position="fixed"
@@ -233,7 +254,7 @@ export default function PersistentDrawerLeft(props) {
                         <div id='ss'>
                              <Link to ='/Notification'>   <Box display="flex">
   <Box m={2}>
-    <Badge badgeContent={99} color="primary">
+    <Badge badgeContent={ctx.value.data.length} color="secondary">
      <NotificationsIcon  style={{color:'white'}} />
     </Badge>
   </Box>
@@ -323,6 +344,17 @@ export default function PersistentDrawerLeft(props) {
                   </List>
                 </NavLink>
 
+                       <NavLink to='/Department' activeClassName='active' >
+                  <List className='sidefect' >
+
+                    <ListItem >
+                  <img src={require('../../assets/img/user.png')} alt='img' id='side_img'  />
+                      <ListItemText ><span  className='sspan' style={{fontWeight: '500',fontSize:'18px' }}>الاقسام</span></ListItemText>
+                    </ListItem>
+
+                  </List>
+                </NavLink>
+
                 <NavLink to='/Section' activeClassName='active' >
                   <List  className='sidefect' >
 
@@ -386,6 +418,29 @@ export default function PersistentDrawerLeft(props) {
         
         </main>
     </div>
+        
+          )
+        }else if (ctx.value.che==="") {
+          return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }
+    
+      }}
+
+      </Context.Consumer>
+
+
+   
   );
 
 }

@@ -8,6 +8,10 @@ import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect} from 'react-router-dom';
+import Lottie from 'lottie-react-web';
+import animation from '../../assets/js/animation.json';
+import Context from '../../assets/js/context';
 const cookies = new Cookies();
 class Table2 extends React.Component {
   constructor(props) {
@@ -17,6 +21,7 @@ class Table2 extends React.Component {
       uss: [],
       data1: [],
       ids: '',
+      check:''
     };
   }
   getMuiTheme = () =>
@@ -48,20 +53,57 @@ class Table2 extends React.Component {
           let obj = {
             code: this.state.data1[index].code,
             cat_id: this.state.data1[index].cat_id,
-            delete: <i className="far fa-trash-alt" id="del"></i>,
+            delete: <i className="far fa-trash-alt" id="del" onClick={()=>{this.delete(this.state.data1[index].id) }} ></i>,
 
             edit: <EditMat id={this.state.data1[index].id} name="ss" />
           };
           arr.push(obj);
         }
         this.setState({
-          data: arr
+          data: arr,
+           check:'login'
         });
       })
       .catch(err => {
         console.log("error:", err);
+                 this.setState({
+          check:'notlogin'
+        });
       });
   }
+
+
+delete(id){
+ let formData = new FormData();
+    var headers = {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("token")
+    };
+  axios({
+    url: Host + `items/${id}`,
+    method: "DELETE",
+    data: formData,
+    headers: headers
+  })
+    .then(response => {
+    if (response.status === 202){
+        toast.warning(' لا يمكنك الحذف  ')
+    }
+    else if(response.status === 200){
+          this.componentDidMount();
+      toast.success(' تم الحذف بنجاح ')
+    } 
+  
+    })
+    .catch(function(err) {
+      
+          console.log(err.response.data.Error);
+          
+        });
+}
+
+
+
 
   render() {
     const columns = [
@@ -109,6 +151,27 @@ class Table2 extends React.Component {
     };
 
     return (
+        <Context.Consumer>{ctx => {
+
+
+        if (this.state.check==="notlogin") {
+          return(
+        <Redirect to="/"></Redirect>
+          )
+        }else if (this.state.check==="login") {
+          return (
+       <div style={{width:'100%',display:'flex',justifyContent:'center'}} >
+            <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar
+newestOnTop
+closeOnClick
+rtl
+pauseOnVisibilityChange
+draggable
+pauseOnHover
+/>
       <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable
           // title={"ACME Employee list"}
@@ -117,9 +180,27 @@ class Table2 extends React.Component {
           options={options}
         />
       </MuiThemeProvider>
+       </div>
+        )
+        }else if (this.state.check==="") {
+          return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }
+    
+      }}
+
+      </Context.Consumer>
     );
   }
 }
-
-// ReactDOM.render(<Table2 />, document.getElementById("root"));
 export default Table2 ;

@@ -8,6 +8,11 @@ import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect} from 'react-router-dom';
+import Lottie from 'lottie-react-web';
+import animation from '../../assets/js/animation.json';
+import Context from '../../assets/js/context';
+
 const cookies = new Cookies();
 class TableStore extends React.Component {
   constructor(props) {
@@ -16,9 +21,8 @@ class TableStore extends React.Component {
       data: [],
       uss: [],
       data1: [],
-  
-      name: "ssss",
-      num: ""
+      num:'',
+      check:''
     };
   }
 
@@ -45,7 +49,7 @@ class TableStore extends React.Component {
         this.setState({
           data: res.data
         });
-        console.log("data1", this.state.data);
+        // console.log("data1", this.state.data);
         let arr = [];
         for (let index = 0; index < this.state.data.length; index++) {
           let obj = {
@@ -69,11 +73,15 @@ class TableStore extends React.Component {
           arr.push(obj);
         }
         this.setState({
-          data1: arr
+          data1: arr,
+           check:'login'
         });
       })
       .catch(err => {
         console.log("error:", err);
+                  this.setState({
+          check:'notlogin'
+        });
       });
   }
 
@@ -125,7 +133,36 @@ class TableStore extends React.Component {
     };
 
     return (
-      // <div style={{width:'100%'}} >
+     <Context.Consumer>{ctx => {
+
+
+        if (this.state.check==="notlogin") {
+             return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }else if (this.state.check==="login") {
+          return (
+       <div style={{width:'100%',display:'flex',justifyContent:'center'}} >
+            <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar
+newestOnTop
+closeOnClick
+rtl
+pauseOnVisibilityChange
+draggable
+pauseOnHover
+/>
 
       <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable
@@ -135,10 +172,29 @@ class TableStore extends React.Component {
           options={options}
         />
       </MuiThemeProvider>
-      // </div>
+     </div>
+        )
+        }else if (this.state.check==="") {
+          return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }
+    
+      }}
+
+      </Context.Consumer>
     );
   }
 }
 
-// ReactDOM.render(<TableStore />, document.getElementById("root"));
+
 export default TableStore ;

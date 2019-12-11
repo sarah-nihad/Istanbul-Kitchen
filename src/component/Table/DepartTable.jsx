@@ -1,20 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import EditUser from '../common/EditUser';
-import EditKitchen from '../common/EditKitchen';
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import DepartEdit from "../common/DepartEdit";
+import Show from "../common/Show";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
-import { Redirect} from 'react-router-dom';
-import Lottie from 'lottie-react-web';
-import animation from '../../assets/js/animation.json';
-import Context from '../../assets/js/context';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect } from "react-router-dom";
+import Lottie from "lottie-react-web";
+import animation from "../../assets/js/animation.json";
+import Context from "../../assets/js/context";
 const cookies = new Cookies();
-class TableKitchen extends React.Component {
+class DepatTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,7 @@ class TableKitchen extends React.Component {
       uss: [],
       data1: [],
       ids: "",
-      check:''
+      check: ""
     };
   }
   getMuiTheme = () =>
@@ -38,7 +38,7 @@ class TableKitchen extends React.Component {
 
   componentDidMount() {
     axios
-      .get(Host + "kmos", {
+      .get(Host + "depts", {
         headers: {
           Authorization: cookies.get("token"),
           Accept: "application/json"
@@ -46,16 +46,17 @@ class TableKitchen extends React.Component {
       })
       .then(res => {
         this.setState({
-          data1: res.data,
+          data1: res.data.data,
           check: "login"
         });
-        console.log("kitchen", this.state.data1);
+        // console.log("data1", this.state.data1);
         let arr = [];
         for (let index = 0; index < this.state.data1.length; index++) {
           let obj = {
-            kitID: this.state.data1[index].kitID,
-            kittrans_count: this.state.data1[index].kittrans_count,
-            user: this.state.data1[index].user.name,
+            name: this.state.data1[index].name,
+            descr: this.state.data1[index].descr ===null ? (
+                <div> </div>
+            ):( <Show name={this.state.data1[index].descr} /> ),
             delete: (
               <i
                 className="far fa-trash-alt"
@@ -65,7 +66,7 @@ class TableKitchen extends React.Component {
                 }}
               ></i>
             ),
-            edit: <EditKitchen id={this.state.data1[index].id} name="ss" />
+            edit: <DepartEdit id={this.state.data1[index].id} name="ss" />
           };
           arr.push(obj);
         }
@@ -75,9 +76,9 @@ class TableKitchen extends React.Component {
       })
       .catch(err => {
         console.log("error:", err);
-                  this.setState({
-                    check: "notlogin"
-                  });
+        this.setState({
+          check: "notlogin"
+        });
       });
   }
 
@@ -88,7 +89,7 @@ class TableKitchen extends React.Component {
       Authorization: cookies.get("token")
     };
     axios({
-      url: Host + `kmos/${id}`,
+      url: Host + `depts/${id}`,
       method: "DELETE",
       data: formData,
       headers: headers
@@ -102,7 +103,7 @@ class TableKitchen extends React.Component {
         }
       })
       .catch(function(err) {
-        console.log("eroor", err.response.data.error.error);
+        console.log(err.response.data.Error);
       });
   }
 
@@ -110,10 +111,8 @@ class TableKitchen extends React.Component {
     const columns = [
       { name: "حذف", field: "delete" },
       { name: "تعديل", field: "edit" },
-      { name: "  المستخدم", field: "user" },
-      { name: " عدد القطع الكلية ", field: "kittrans_count" },
-
-      { name: "  رقم المطبخ ", field: "kitID" }
+      { name: " وصف ", field: "descr" },
+      { name: "اسم القسم", field: "name" }
     ];
 
     const options = {
@@ -125,7 +124,7 @@ class TableKitchen extends React.Component {
       filter: false,
       textLabels: {
         body: {
-          noMatch: "آسف ، لم يتم العثور على سجلات مطابقة",
+          noMatch: " لم يتم العثور على سجلات مطابقة",
           toolTip: "فرز"
         },
         pagination: {
@@ -215,5 +214,4 @@ class TableKitchen extends React.Component {
   }
 }
 
-
-export default TableKitchen ;
+export default DepatTable;

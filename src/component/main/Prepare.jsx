@@ -7,10 +7,18 @@ import CloseIcon from '@material-ui/icons/Close';
 import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select';
 import EditCard from '../common/EditCard';
+import { Redirect } from "react-router-dom";
+import Lottie from "lottie-react-web";
+import animation from "../../assets/js/animation.json";
+import Context from "../../assets/js/context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import Host from "../../assets/js/Host";
+const cookies = new Cookies();
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'يدات', label: 'يدات' },
@@ -46,13 +54,17 @@ class Prepare extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
- data:[],
-  data2:[],
- type:'',
- num:'',
- material:'',
- number:22
-    }
+      data: [],
+      data1: [],
+      data2: [],
+      kitch: [],
+      store: [],
+      store1: [],
+      type: "",
+      num: "",
+      material: "",
+      number: 22
+    };
 
 
   }
@@ -69,7 +81,7 @@ add(){
    )
 
   console.log(this.state.data);
-  this.componentDidMount()
+  // this.componentDidMount()
 }
 
 
@@ -79,7 +91,79 @@ this.setState({
   data2:this.state.data
 })
  console.log(this.state.data2);
+
+
+   axios
+     .get(Host + "kmos", {
+       headers: {
+         Authorization: cookies.get("token"),
+         Accept: "application/json"
+       }
+     })
+     .then(res => {
+       this.setState({
+         data1: res.data,
+       });
+       console.log("kitchen", this.state.data1);
+       let arr = [];
+       for (let index = 0; index < this.state.data1.length; index++) {
+         let obj = {
+           value: this.state.data1[index].kitID,
+           label: this.state.data1[index].kitID
+         };
+         arr.push(obj);
+       }
+       this.setState({
+         kitch: arr
+       });
+     })
+     .catch(err => {
+       console.log("error:", err);
+     });
+
+
+
+  axios
+    .get(Host + "inventories", {
+      headers: {
+        Authorization: cookies.get("token"),
+        Accept: "application/json"
+      }
+    })
+    .then(res => {
+      this.setState({
+        store: res.data
+      });
+      // console.log("data1", this.state.data);
+      let arr = [];
+      for (let index = 0; index < this.state.store.length; index++) {
+        let obj = {
+        
+          value: this.state.store[index].item.code,
+          label: this.state.store[index].item.code
+        };
+        arr.push(obj);
+      }
+      this.setState({
+        store1: arr
+      });
+    })
+    .catch(err => {
+      console.log("error:", err);
+     
+    });
+
+
+
+
+
+
+
   }
+
+
+
+
 
 
 
@@ -88,7 +172,7 @@ del(index){
   this.setState({
     data:this.state.data2
   })
-   this.componentDidMount()
+  //  this.componentDidMount()
 }
 
    getMuiTheme = () => createMuiTheme({
@@ -206,7 +290,7 @@ pauseOnHover
                                   }}
                                  value={selectedOption}
                                   styles={customStyles}
-                                  options={options}
+                                  options={this.state.kitch}
                                 />
               
               </div>
@@ -223,7 +307,7 @@ pauseOnHover
                                   }}
                                  value={selectedOption}
                                   styles={customStyles}
-                                  options={options}
+                                  options={this.state.store1}
                                 />
               
                </div>

@@ -21,9 +21,7 @@ const cookies = new Cookies();
 
     add(){
     let formData = new FormData();
-  
         var headers = {
-        
          Accept: "application/json",
           Authorization: cookies.get("token")
         };
@@ -36,8 +34,9 @@ const cookies = new Cookies();
       headers: headers
     })
       .then(response => {
+          toast.success('تمت الاضافة بنجاح');
     
-        // this.componentDidMount()
+ window.location.reload();
       })
       .catch(function(error) {
         if (error.response) {

@@ -24,39 +24,25 @@ const cookies = new Cookies();
      var headers = {
        Authorization: cookies.get("token")
      };
+  // console.log('vv',headers.Authorization);
   
-    //  axios({
-    //    url: Host + `stores/${this.props.id}`,
-    //    method: "PUT",
-    //    headers: headers,
-    //    data:{
-    //    name: this.state.name,
-    //    location: this.state.location
-    //    },
-    //  })
-       axios
-         .put(
-           Host + `stores/${this.props.id}`,
-           {
-             headers: {
-               Authorization: cookies.get("token"),
-               Accept: "application/json"
-             }
-           },
-           {
-             name: this.state.name,
-             location: this.state.location
-           }
-         )
-
+     axios({
+       url: Host + `stores/${this.props.id}`,
+       method: "PUT",
+       headers: headers,
+       data:{
+       name: this.state.name,
+       location: this.state.location
+       },
+     })
+     
          .then(response => {
            toast.success("تم تعديل المعلومات بنجاح");
-           //  this.componentDidMount();
+           window.location.reload();
+         
          })
          .catch(function(error) {
            if (error.response.data.Error) {
-             console.log(error.response.data.Error);
-
              toast.error(error.response.data.Error);
            }
          });
@@ -106,7 +92,7 @@ const cookies = new Cookies();
                          width: "100%"
                        }}
                      >
-                       <p> {this.props.id} </p>
+                     
                        <div style={{ width: "30%" }}> اسم المخزن </div>
                        <div style={{ width: "80%", textAlign: "center" }}>
                          <input

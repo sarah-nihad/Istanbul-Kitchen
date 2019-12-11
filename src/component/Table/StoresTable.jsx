@@ -9,6 +9,10 @@ import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Redirect} from 'react-router-dom';
+import Lottie from 'lottie-react-web';
+import animation from '../../assets/js/animation.json';
+import Context from '../../assets/js/context';
 const cookies = new Cookies();
 class StoresTable extends React.Component {
 
@@ -18,7 +22,8 @@ class StoresTable extends React.Component {
  data:[],
  uss:[],
   data1:[],
-  ids:''
+  ids:'',
+  check:''
     }}
 
 
@@ -43,9 +48,10 @@ class StoresTable extends React.Component {
       })
       .then(res => {
         this.setState({
-          data: res.data
+          data: res.data,
+          check:'login'
         });
-        // console.log("data1", this.state.data);
+      console.log("ids", this.state.ids);
          let arr = [];
          for (let index = 0; index < this.state.data.length; index++) {
            let obj = {
@@ -55,9 +61,9 @@ class StoresTable extends React.Component {
              delete: 
                <i
                  className="far fa-trash-alt"
-                 id="del" onClick={()=>{this.delete(this.state.ids)}}
-                 ids={this.state.data[index].id}
+                 id="del" onClick={()=>{this.delete(this.state.data[index].id) }}  
                ></i>
+                   
              ,
              edit: <StoresEdit id={this.state.data[index].id} name="ss" />
            };
@@ -66,35 +72,41 @@ class StoresTable extends React.Component {
          this.setState({
            data1: arr
          });
+         
       })
       .catch(err => {
         console.log("error:", err);
+              this.setState({
+          check:'notlogin'
+        });
       });
 
     
   }
 
-delete(){
+delete(id){
  let formData = new FormData();
     var headers = {
       "Content-Type": "application/json",
       Authorization: cookies.get("token")
     };
   axios({
-    url: Host + `stores/${this.state.ids}`,
+    url: Host + `stores/${id}`,
     method: "DELETE",
     data: formData,
     headers: headers
   })
     .then(response => {
-      // toaster.success("experence has been deleted successfully");
+    
       this.componentDidMount();
-      // window.location.reload();
+      toast.success(' تم الحذف بنجاح ')
     })
-    .catch(function(error) {});
-  }
-
-
+    .catch(function(err) {
+      
+          console.log(err.response.data.Error);
+          
+        });
+}
 
 
   render() {
@@ -145,7 +157,29 @@ delete(){
     };
 
     return (
-      <div>
+
+
+      <Context.Consumer>{ctx => {
+
+
+        if (this.state.check==="notlogin") {
+          return(
+        <Redirect to="/"></Redirect>
+          )
+        }else if (this.state.check==="login") {
+          return (
+        <div style={{width:'100%',display:'flex',justifyContent:'center'}} >
+            <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar
+newestOnTop
+closeOnClick
+rtl
+pauseOnVisibilityChange
+draggable
+pauseOnHover
+/>
         <MuiThemeProvider theme={this.getMuiTheme()}>
           <MaterialDatatable
             data={this.state.data1}
@@ -156,11 +190,36 @@ delete(){
           />
         </MuiThemeProvider>
       </div>
+          )
+        }else if (this.state.check==="") {
+          return(
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
+   
+   <Lottie
+                 options={{
+                   animationData: animation,
+                 }}
+                width={300}
+                height={300}
+               />
+</div>
+          )
+        }
+    
+      }}
+
+      </Context.Consumer>
+
+
+
+
+
+
+
+    
     );
   }
 }
 
-// ReactDOM.render(<StoresTable />,
-//  document.getElementById("root"));
 export default StoresTable ;
 

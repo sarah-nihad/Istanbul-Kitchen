@@ -2,13 +2,13 @@
  import {Pane,Dialog,Button} from 'evergreen-ui';
 import Component from '@reactions/component';
 import Select from 'react-select';
+import axios from "axios";
+import Cookies from "universal-cookie";
+import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'يدات', label: 'يدات' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+const cookies = new Cookies();
+
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
@@ -32,26 +32,42 @@ const customStyles = {
 }
 
 
- class EditCard extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
- data:[],
-  data2:[],
- type:'',
- num:'',
- material:'',
- number:22
-    }
+ class EditCard extends React.Component {
+   constructor(props) {
+     super(props);
+     this.state = {
+       data: [],
+       count: ""
+     };
+   }
 
+   edit() {
+     var headers = {
+       Authorization: cookies.get("token")
+     };
+     // console.log('vv',headers.Authorization);
 
-  }
+     axios({
+       url: Host + `kittrans/${this.props.id}`,
+       method: "PUT",
+       headers: headers,
+       data: {
+         count: this.state.count
+       }
+     })
+       .then(response => {
+         toast.success("تم تعديل المعلومات بنجاح");
+         window.location.reload();
+       })
+       .catch(function(error) {
+         if (error.response.data.error) {
+           toast.error(error.response.data.error);
+         }
+       });
+   }
 
-
-
-
-   render(){
-        const { selectedOption } = this.state;
+   render() {
+     const { selectedOption } = this.state;
      return (
        <div>
          <ToastContainer
@@ -75,6 +91,10 @@ const customStyles = {
                  shouldCloseOnOverlayClick={false}
                  confirmLabel=" حفظ"
                  cancelLabel="الغاء"
+                 onConfirm={() => {
+                   setState({ isShown: false });
+                   this.edit();
+                 }}
                >
                  <div>
                    <div id="new_itemnav"> تعديل المعلومات </div>
@@ -91,87 +111,34 @@ const customStyles = {
                          width: "100%"
                        }}
                      >
-                       <div style={{ width: "35%", textAlign: "center" }}>
-                         {" "}
-                         الاصناف{" "}
-                       </div>
                        <div
                          style={{
-                           width: "55%",
-                           textAlign: "center",
                            display: "flex",
-                           justifyContent: "center"
+                           alignItems: "center",
+                           justifyContent: "space-around",
+                           height: "60px",
+                           direction: "rtl",
+                           fontWeight: "600",
+                           fontSize: "18px",
+                           width: "100%"
                          }}
                        >
-                         <Select
-                           id="field2"
-                           placeholder="  اختر الصنف"
-                           onChange={e => {
-                             this.setState({ type: e.value });
-                           }}
-                           value={selectedOption}
-                           styles={customStyles}
-                           options={options}
-                         />
-                       </div>
-                     </div>
+                         <div style={{ width: "35%", textAlign: "center" }}>
+                           {" "}
+                           الكمية{" "}
+                         </div>
 
-                     <div
-                       style={{
-                         display: "flex",
-                         alignItems: "center",
-                         justifyContent: "space-around",
-                         height: "60px",
-                         direction: "rtl",
-                         fontWeight: "600",
-                         fontSize: "18px",
-                         width: "100%"
-                       }}
-                     >
-                       <div style={{ width: "35%", textAlign: "center" }}>
-                         {" "}
-                         المواد{" "}
-                       </div>
-                       <div
-                         style={{
-                           width: "55%",
-                           textAlign: "center",
-                           display: "flex",
-                           justifyContent: "center"
-                         }}
-                       >
-                         <Select
-                           id="field2"
-                           placeholder="  اختر المواد"
-                           onChange={e => {
-                             this.setState({ type: e.value });
-                           }}
-                           value={selectedOption}
-                           styles={customStyles}
-                           options={options}
-                         />
-                       </div>
-                     </div>
-
-                     <div
-                       style={{
-                         display: "flex",
-                         alignItems: "center",
-                         justifyContent: "space-around",
-                         height: "60px",
-                         direction: "rtl",
-                         fontWeight: "600",
-                         fontSize: "18px",
-                         width: "100%"
-                       }}
-                     >
-                       <div style={{ width: "35%", textAlign: "center" }}>
-                         {" "}
-                         الكمية{" "}
-                       </div>
-
-                       <div style={{ width: "55%", textAlign: "center" }}>
-                         <input type="text" id="field2" placeholder="الكمية " />
+                         <div style={{ width: "55%", textAlign: "center" }}>
+                           <input
+                             type="text"
+                             id="field2"
+                             placeholder="الكمية"
+                             value={this.state.count}
+                             onChange={e => {
+                               this.setState({ count: e.target.value });
+                             }}
+                           />
+                         </div>
                        </div>
                      </div>
                    </div>

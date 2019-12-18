@@ -55,7 +55,6 @@ else{
           ms:res.data.data.msg,
               check:'login',
         });
-        // console.log("notifi",this.state.data.length);
       })
       .catch(err => {
         console.log("error:", err);
@@ -77,7 +76,7 @@ else{
        
               check:'login',
         });
-        // console.log("Users",this.state.Dash);
+       
       })
       .catch(err => {
         console.log("error:", err);
@@ -127,6 +126,7 @@ render() {
     <Route path ='/Prepare' component={Nav2}   />
   <Route path ='/Store' component={Nav2}   />
     <Route path ='/Stores' component={Nav2}   />
+     <Route path ='/Detiels' component={Nav2}   />
  </Switch> 
     </Context.Provider>
     </BrowserRouter>

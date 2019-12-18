@@ -26,7 +26,6 @@ import Kitchen from '../main/Kitchen';
 import Prepare from '../main/Prepare';
 import Notification from '../main/Notification';
 import Dashboard from '../Dashboard/Dashboard';
-import User from '../Dashboard/User';
 import Material from '../main/Material';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
@@ -34,6 +33,7 @@ import { Link ,NavLink} from 'react-router-dom'
 import { Navbar,Nav } from 'react-bootstrap';
 import { Popover, Pane, Avatar } from 'evergreen-ui';
 import Store from '../main/Store';
+import Detiels from '../main/Detiels';
 import Stores from '../main/Stores';
 import { Redirect} from 'react-router-dom';
 import Lottie from 'lottie-react-web';
@@ -84,6 +84,9 @@ function rendertitile(props) {
       }
        else  if (props.match.path === '/Department') {
         return ( <div>  الاقسام   </div>)
+      }
+        else  if (props.match.path === '/Detiels') {
+        return ( <div>  تفاصيل المطبخ   </div>)
       }
 }
 
@@ -179,9 +182,7 @@ export default function PersistentDrawerLeft(props) {
   if (props.match.path === '/Dashboard') {
     return (<Dashboard />)
   }
-  else if (props.match.path === '/User') {
-    return (<User/>)
-  }
+
   else if (props.match.path === '/Users') {
     return (<Users/>)
   }
@@ -211,6 +212,9 @@ export default function PersistentDrawerLeft(props) {
   }
      else if (props.match.path === '/Department') {
     return (<Department />)
+  }
+       else if (props.match.path === '/Detiels') {
+    return (<Detiels />)
   }
 }
   return (
@@ -252,6 +256,8 @@ export default function PersistentDrawerLeft(props) {
                 <div id='nav_title' >   {rendertitile(props)} </div>
                    
                         <div id='ss'>
+                         {(cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker"  ? (
+             <div></div>):( 
                              <Link to ='/Notification'>   <Box display="flex">
   <Box m={2}>
     <Badge badgeContent={ctx.value.data.length} color="secondary">
@@ -259,8 +265,8 @@ export default function PersistentDrawerLeft(props) {
     </Badge>
   </Box>
 </Box>
-</Link>
-                    <div id='p1'>اسم المستخدم</div> 
+</Link>)}
+                    <div id='p1'> {cookies.get("names")} </div> 
                      <Popover 
               content={
                 <Pane
@@ -305,26 +311,24 @@ export default function PersistentDrawerLeft(props) {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
+        {/* <div className={classes.drawerHeader}>
+       
+        </div> */}
 
           <div id='jj'>
-               
+          <div style={{display:'flex',width:'100%',flexDirection:'row-reverse',paddingRight:'10px'}} >
+                  <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+          </div>
                 <div className={classes.toolbar} />
         
-           
-              
-            
-
                 <div className='logo-large' >
                 <img src={require('../../assets/img/Logo.png')} alt='img' style={{height:100}}  />
 </div>
 
 <NavLink to='/Dashboard' activeClassName='active' >
-                  <List className='sidefect' >
+                  <List className='sidefect' style={{paddingBottom:0}} >
 
                     <ListItem >
                   <img src={require('../../assets/img/home.png')} alt='img' id='side_img'  />
@@ -333,8 +337,11 @@ export default function PersistentDrawerLeft(props) {
 
                   </List>
                 </NavLink> 
-                <NavLink to='/Users' activeClassName='active' >
-                  <List className='sidefect' >
+              
+                {(cookies.get("role"))=== "Normal" || (cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker" || (cookies.get("role"))==="Storekeeper" ? ( 
+  <div></div>
+):(        <NavLink to='/Users' activeClassName='active' >
+                  <List className='sidefect'  style={{paddingBottom:0}} >
 
                     <ListItem >
                   <img src={require('../../assets/img/user.png')} alt='img' id='side_img'  />
@@ -342,10 +349,11 @@ export default function PersistentDrawerLeft(props) {
                     </ListItem>
 
                   </List>
-                </NavLink>
-
-                       <NavLink to='/Department' activeClassName='active' >
-                  <List className='sidefect' >
+                </NavLink>) }
+        
+           {(cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker" || (cookies.get("role"))==="Storekeeper" ? ( 
+             null):(    <NavLink to='/Department' activeClassName='active' >
+                  <List className='sidefect'  style={{paddingBottom:0}} >
 
                     <ListItem >
                   <img src={require('../../assets/img/user.png')} alt='img' id='side_img'  />
@@ -353,10 +361,12 @@ export default function PersistentDrawerLeft(props) {
                     </ListItem>
 
                   </List>
-                </NavLink>
-
+                </NavLink>)}
+                   
+ {(cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker"  ? (
+             null):( 
                 <NavLink to='/Section' activeClassName='active' >
-                  <List  className='sidefect' >
+                  <List  className='sidefect' style={{paddingBottom:0}} >
 
                     <ListItem >
                     <img src={require('../../assets/img/section.png')} alt='img' id='side_img'  />
@@ -364,10 +374,11 @@ export default function PersistentDrawerLeft(props) {
                     </ListItem>
 
                   </List>
-                </NavLink>
-
+                </NavLink>)}
+  {(cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker"  ? (
+             null):( 
                      <NavLink to='/Stores' activeClassName='active' >
-                  <List  className='sidefect' >
+                  <List  className='sidefect' style={{paddingBottom:0}} >
 
                     <ListItem >
                     <img src={require('../../assets/img/cart.png')} alt='img' id='side_img'  />
@@ -375,21 +386,22 @@ export default function PersistentDrawerLeft(props) {
                     </ListItem>
 
                   </List>
-                </NavLink>
-
-                <NavLink to='/Kitchen' activeClassName='active' >
-                  <List  className='sidefect' >
-
+                </NavLink>)}
+                 {(cookies.get("role"))==="Storekeeper" ?(null):(  
+                   <NavLink to='/Kitchen' activeClassName='active' >
+                  <List  className='sidefect' style={{paddingBottom:0}} >
                     <ListItem >
                     <img src={require('../../assets/img/chef.png')} alt='img' id='side_img'  />
                       <ListItemText ><span className='sspan' style={{fontWeight: '500',fontSize:'18px' }}> تجهيز المطابخ</span></ListItemText>
                     </ListItem>
+                    </List>
+                </NavLink> ) }
+            
 
-                  </List>
-                </NavLink>
-
+ {(cookies.get("role"))=== "Designer" || (cookies.get("role"))==="Checker"  ? (
+             null):( 
                 <NavLink to='/Notification' activeClassName='active' >
-                  <List  className='sidefect' >
+                  <List  className='sidefect' style={{paddingBottom:0}} >
 
                     <ListItem >
                     <img src={require('../../assets/img/bell.png')} alt='img' id='side_img'  />
@@ -397,7 +409,7 @@ export default function PersistentDrawerLeft(props) {
                     </ListItem>
 
                   </List>
-                </NavLink>
+                </NavLink>)}
 
 
               </div>

@@ -72,7 +72,7 @@ class Notification extends Component {
                 <span>       للنفاذ من المخزن </span>
                     <span>   {ite.store.name}</span>
                  <span>     العدد المتبقي هو </span>
-                   <span>  {ite.trigger_value} </span> 
+                   <span>  {ite.count} </span> 
                     </div>
                   </div>
                 </div>

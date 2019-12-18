@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React  from "react";
 import { TextInput, toaster } from "evergreen-ui";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav,Button } from "react-bootstrap";
 import axios from "axios";
+import Component from "@reactions/component";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,9 +15,16 @@ class Login extends Component {
     this.state = {
       data: [],
       username: '',
-      password: ''
+      password: '',
+      spin:false,
+      errors:false
+      
     };
   }
+
+
+
+  
 
   login(e) {
     
@@ -30,35 +38,40 @@ class Login extends Component {
 
         data: formData,
         
-
       })
         .then(response => {
           window.location.href = "/Dashboard";
            let token="Bearer "+response.data.success.token
-          cookies.set("token",token
-          , {
+           let role= response.data.success.userInfo.role.name
+           let names=response.data.success.userInfo.username
+          cookies.set("token",token,{
             
             path: "/",
             expires: new Date(Date.now() + 60480000)
-          
-            
+    
       });
-           console.log("ss", response.data.success.token)
+      cookies.set("names",names)
+       cookies.set("role",role)
+           console.log("ss",role)
+            this.setState({spin:false})
         })
         .catch(function(err) {
+         
           if (err.response.data.Error) {
             toast.error('تأكد من ادخال المعلومات')
+           
           }
           console.log(err.response.data.Error);
-          
+            
         });
   }
 
   render() {
+   
     return (
       <div>
       <ToastContainer
-position="top-center"
+position="bottom-center"
 autoClose={5000}
 hideProgressBar
 newestOnTop
@@ -105,43 +118,108 @@ pauseOnHover
             <div className="up_field">
               <TextInput
                 id="field1"
-                placeholder="Username"
+                placeholder="اسم المستخدم"
                 value={this.state.username}
                 onChange={e => {
                   this.setState({ username: e.target.value });
+                     if (e.target.value.length < 4) {
+                    this.setState({errors:true})
+                  }
+                  else{
+                     this.setState({ errors: false });
+                  }
+
                 }}
               />
-              {/* <input
-                type="password"
-                id="field1"
-                placeholder="******"
-                value={this.state.password}
-                onChange={e => {
-                  this.setState({ password: e.target.value });
-                }}
-              /> */}
+         
               <TextInput
                 id="field1"
                 name="text-input-name"
                 type="password"
-                placeholder=" Password "
+                placeholder=" كلمة المرور "
                 required
                 value={this.state.password}
                 onChange={e => {
                   this.setState({ password: e.target.value });
+                       if (e.target.value.length < 4) {
+                    this.setState({errors:true})
+                  }
+                  else{
+                     this.setState({ errors: false });
+                  }
+
+
                 }}
               />
             </div>
 
             <div className="down_field">
-              <button
+             <Component initialState={{ isShown: true, spin: false }}>
+                {({ state, setState }) =>
+      <button
                 id="sign_but"
                 onClick={(e) => {
-                  this.login(e);
+                           if (this.state.errors===true) {
+                    return(
+                       toast.error( `اسم المستخدم او كلمة المرور المدخلة قصيرة` )
+                      );   
+                  }
+              else if (this.state.errors===false) {
+                 setState({ spin: true });
+               
+  let formData = new FormData();
+          formData.append("username",this.state.username);
+        formData.append("password",this.state.password);
+      axios({
+        url: Host + `auth/login`,
+        method: "POST",
+
+        data: formData,
+        
+      })
+        .then(response => {
+          window.location.href = "/Dashboard";
+           let token="Bearer "+response.data.success.token
+           let role= response.data.success.userInfo.role.name
+           let names=response.data.success.userInfo.username
+          cookies.set("token",token,{
+            
+            path: "/",
+            expires: new Date(Date.now() + 60480000)
+    
+      });
+      cookies.set("names",names)
+       cookies.set("role",role)
+           console.log("ss",role)
+           setState({spin:false})
+        })
+        .catch(function(err) {
+          setState({ spin: false });
+          if (err.response.data.Error) {
+            toast.error('تأكد من ادخال المعلومات')
+           
+          }
+          console.log(err.response.data.Error);
+            
+        });
+
+
+              }
+ 
+  
                 }}
               >
-                Sign in
-              </button>
+               {state.spin===false ?(
+<div>تسجيل الدخول  </div>
+               ):(
+                 <div> جاري تسجيل الدخول</div>
+               ) } 
+              </button> 
+ 
+      
+                }
+              </Component>
+
             </div>
           </div>
 

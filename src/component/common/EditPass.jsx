@@ -19,7 +19,7 @@ const cookies = new Cookies();
 
 
 
- edit() {
+ editpass() {
      var headers = {
        Authorization: cookies.get("token")
      };
@@ -77,7 +77,7 @@ const cookies = new Cookies();
          cancelLabel="الغاء"
            onConfirm={() => {
                    setState({ isShown: false });
-                   this.edit();
+                   this.editpass();
                  }}
       >
           <div >

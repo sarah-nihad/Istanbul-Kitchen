@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link ,NavLink} from 'react-router-dom'
-import Mod2 from '../common/Mod2';
-import Table2 from '../Table/Table2';
 import {Row,Col} from 'react-bootstrap';
 import CloseIcon from '@material-ui/icons/Close';
 import ReactDOM from "react-dom";
@@ -10,7 +8,6 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Select from 'react-select';
  import { Pane, Dialog, Button } from "evergreen-ui";
  import Component from "@reactions/component";
-import EditCard from '../common/EditCard';
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react-web";
 import animation from "../../assets/js/animation.json";
@@ -77,7 +74,9 @@ class Prepare extends React.Component {
       count: "",
       trigger: "",
       kittrans: [],
-      kmos: []
+      kmos: [],
+      allkoms:[],
+      errors:false
     };
   }
 
@@ -214,7 +213,7 @@ class Prepare extends React.Component {
         let obj = {
           value: this.state.afterfilter[index].id,
           label: this.state.afterfilter[index].item.code,
-          trigger: this.state.afterfilter[index].trigger_value
+          trigger: this.state.afterfilter[index].count
         };
         arr.push(obj);
       }
@@ -256,9 +255,10 @@ class Prepare extends React.Component {
       })
       .then(res => {
         this.setState({
-          kmos: res.data.data.details
+          kmos: res.data.data.details,
+          allkoms: res.data.data.kitchen
         });
-        console.log("kmos", this.state.kmos);
+        console.log("kmos",this.state.kmos.length);
       })
       .catch(err => {
         console.log("error:", err);
@@ -332,7 +332,7 @@ class Prepare extends React.Component {
     return (
       <div id="main_sec">
         <ToastContainer
-          position="top-center"
+          position="bottom-center"
           autoClose={5000}
           hideProgressBar
           newestOnTop
@@ -357,8 +357,55 @@ class Prepare extends React.Component {
           </div>
         </div>
 
-        <Row style={{ marginRight: 0, width: "90%" }} id="row_prep">
-          <Col xs={12} lg={3}></Col>
+        <Row style={{ marginRight: 0, width: "100%" }} id="row_prep">
+          <Col xs={12} lg={3}>
+            {this.state.allkoms.kitID === undefined ? (
+              <div></div>
+            ) : (
+              <div id="info_col1">
+                <div id="item_text">
+                  <div> : رقم المطبخ </div>
+                  <div style={{ paddingRight: 8 }}>
+                    {this.state.allkoms.kitID}
+                  </div>
+                </div>
+                {this.state.kmos.length === 0 ? (
+                  <div
+                    id="item_text"
+                    style={{ textAlign: "center", paddingTop: 12 }}
+                  >
+                    لا يحتوي على بيانات
+                  </div>
+                ) : (
+                  <div id="item_text" style={{ paddingTop: 12 }}>
+                    <div> : عدد القطع </div>
+                    <div style={{ paddingRight: 8 }}>
+                      {this.state.kmos.length}
+                    </div>
+                  </div>
+                )}
+
+                <div id="item_text" style={{ paddingTop: 12 }}>
+                  <div> : المستخدم</div>
+                  <div style={{ paddingRight: 8 }}>
+                    {this.state.allkoms.user.username}
+                  </div>
+                </div>
+                <div id="item_text" style={{ paddingTop: 12 }}>
+                  <div> : تاريخ الانشاء</div>
+                  <div style={{ paddingRight: 8 }}>
+                    {this.state.allkoms.created_at}
+                  </div>
+                </div>
+                <div id="item_text" style={{ paddingTop: 12 }}>
+                  <div> : اخر تعديل</div>
+                  <div style={{ paddingRight: 8 }}>
+                    {this.state.allkoms.updated_at}
+                  </div>
+                </div>
+              </div>
+            )}
+          </Col>
 
           <Col xs={12} lg={5}>
             <div>
@@ -464,26 +511,21 @@ class Prepare extends React.Component {
 
                   <div id="card_info">
                     <div id="item_text">
-                      {" "}
-                      <div> : الصنف </div>{" "}
+                      <div> : الصنف </div>
                       <div style={{ paddingRight: 8 }}>
                         {" "}
-                        {p.inventory.item.cat.name}
-                      </div>{" "}
+                        {p.inventory.item.cat.name}{" "}
+                      </div>
                     </div>
-                    <div id="item_textm1">
-                      {" "}
-                      {/* المواد <div id="line" />{" "} */}
-                    </div>
+                    <div id="item_textm1"></div>
 
                     <div id="item_text">
-                      {" "}
-                      <div> : رمز المادة </div>{" "}
+                      <div> : رمز المادة </div>
                       <div style={{ paddingRight: 8 }}>
-                        {" "}
                         {p.inventory.item.code}
-                      </div>{" "}
+                      </div>
                     </div>
+
                     <div id="item_text">
                       {" "}
                       <div> : عدد القطع </div>{" "}
@@ -611,7 +653,12 @@ class Prepare extends React.Component {
                 onChange={e => {
                   this.setState({ num: e.target.value });
                   if (e.target.value > this.state.trigger) {
-                    toast.error("sss");
+                    this.setState({ errors: true });
+                    toast.error(
+                      `يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`
+                    );
+                  } else {
+                    this.setState({ errors: false });
                   }
                 }}
               />
@@ -621,11 +668,16 @@ class Prepare extends React.Component {
               <div
                 id="add"
                 onClick={() => {
-                  this.newitem();
+                  if (this.state.errors === true) {
+                    return toast.error(
+                      `يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`
+                    );
+                  } else if (this.state.errors === false) {
+                    this.newitem();
+                  }
                 }}
               >
-                {" "}
-                اضافة{" "}
+                اضافة
               </div>
             </div>
           </Col>

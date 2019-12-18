@@ -52,7 +52,7 @@ class Table2 extends React.Component {
         for (let index = 0; index < this.state.data1.length; index++) {
           let obj = {
             code: this.state.data1[index].code,
-            cat_id: this.state.data1[index].cat_id,
+            cat_id: this.state.data1[index].cat.name,
             delete: <i className="far fa-trash-alt" id="del" onClick={()=>{this.delete(this.state.data1[index].id) }} ></i>,
 
             edit: <EditMat id={this.state.data1[index].id} name="ss" />
@@ -174,7 +174,6 @@ pauseOnHover
 />
       <MuiThemeProvider theme={this.getMuiTheme()}>
         <MaterialDatatable
-          // title={"ACME Employee list"}
           data={this.state.data}
           columns={columns}
           options={options}

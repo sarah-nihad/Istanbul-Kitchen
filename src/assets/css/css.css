@@ -112,7 +112,9 @@
 
 
 @media screen and (min-width: 700px) {
-   
+      #row_kit{
+flex-direction: row-reverse;
+    }
 #kitch_sid{
     width: 50%;
     padding-left: 15px;
@@ -187,6 +189,9 @@ width: 60%;
 }
 
 @media screen and (max-width: 700px) {
+    #row_kit{
+flex-direction: column;
+    }
     #main_row{
 flex-direction: column-reverse;
     }

@@ -10,6 +10,8 @@ import { Redirect} from 'react-router-dom';
 import Lottie from 'lottie-react-web';
 import animation from '../../assets/js/animation.json';
 import Context from '../../assets/js/context';
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 class Dashboard extends Component{
 
     render(){
@@ -18,41 +20,33 @@ class Dashboard extends Component{
   <Context.Consumer>{ctx => {
 
 
-        if (ctx.value.check==="notlogin") {
+        if (ctx.value.che==="notlogin") {
           return(
         <Redirect to="/"></Redirect>
           )
-        }else if (ctx.value.check==="login") {
+        }else
+         if (ctx.value.che==="login") {
           return (
           <div id='cuthome' >
            
               <Row style={{marginRight:0,width:'100%',display:'flex',justifyContent:'center'}} >
+                    
+                    {(cookies.get("role"))==="Storekeeper" ?(null):( 
                     <div id='col_dash'  >
-                    {/* <NavLink to='/User' activeClassName='is'  > */}
                     <div className='card'>
                      <div className='round'>
                                       <GroupIcon />
                                     </div>
-                                 
-                        <div className='card-body'>
+                                  <div className='card-body'>
                               <div className='numcard' > {ctx.value.Dash.users} </div>
-                        
-                                    <div className='m-l-10 '>
+                        <div className='m-l-10 '>
                                         <p className='mb-0'>المستخدمين</p>  
                                     </div>
-                            
-                            
-                         
-                           <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.users} />
-                           </div>
-                        </div>
+                             </div></div>
+                 </div>
+                    )}
 
-                    </div>
-                    {/* </NavLink> */}
-                    
-                    </div>
-
+   {(cookies.get("role"))==="Storekeeper" ?(null):( 
                     <div   id='col_dash' >
                  
                     <div className='card'>
@@ -66,20 +60,14 @@ class Dashboard extends Component{
                                    
                                         <p className='mb-0'> الاقسام</p>
                                     </div>
+                                    </div>
+                                    </div>
+                                       </div>
+   )}
 
-                       <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.departments} />
-                           </div>
-                        </div>
-
-                    </div>
-             
-                    
-                    </div>
-
+                   
                     <div  id='col_dash'  >
-                
-                    <div className='card'>
+               <div className='card'>
                       <div className='round'>
                                         <CategoryIcon />
                                     </div>
@@ -92,9 +80,7 @@ class Dashboard extends Component{
                                     </div>
                            
                    
-                         <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.categories} />
-                           </div>
+                      
                         </div>
 
                     </div>
@@ -116,10 +102,7 @@ class Dashboard extends Component{
                                
                                         <p className='mb-0'>المواد</p>
                                     </div>
-                             
-                           <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.items} />
-                           </div>
+                        
                         </div>
 
                     </div>
@@ -141,9 +124,7 @@ class Dashboard extends Component{
                                         <p className='mb-0'>المخازن</p>
                                     </div>
                              
-                          <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.stores} />
-                           </div>
+                       
                         </div>
 
                     </div>
@@ -165,9 +146,7 @@ class Dashboard extends Component{
                                         <p className='mb-0'>المطابخ </p>
                                     </div>
                              
-                         <div style={{paddingTop:15}} >
-                              <ProgressBar striped   now={ctx.value.Dash.kitchens} />
-                           </div>
+                        
                         </div>
 
                     </div>
@@ -179,7 +158,7 @@ class Dashboard extends Component{
             </div>
         
           )
-        }else if (ctx.value.check==="") {
+        }else if (ctx.value.che==="") {
           return(
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}  >
    

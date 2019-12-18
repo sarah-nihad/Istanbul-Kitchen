@@ -68,12 +68,12 @@ const cookies = new Cookies();
            draggable
            pauseOnHover
          />
+         
 <Component initialState={{ isShown: false }}    >
   {({ state, setState }) => (
     <Pane >
       <Dialog 
         isShown={state.isShown}
-        title="انشاء مستحدم جديد "
         onCloseComplete={() => setState({ isShown: false })}
       hasHeader={false}
         shouldCloseOnOverlayClick={false}

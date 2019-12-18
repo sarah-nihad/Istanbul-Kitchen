@@ -67,7 +67,6 @@ const cookies = new Cookies();
              <Pane>
                <Dialog
                  isShown={state.isShown}
-                 title="انشاء قسم جديد "
                  onCloseComplete={() => setState({ isShown: false })}
                  hasHeader={false}
                  shouldCloseOnOverlayClick={false}

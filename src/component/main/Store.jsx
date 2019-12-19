@@ -15,6 +15,7 @@ import Context from "../../assets/js/context";
 import Select from "react-select";
 import MaterialDatatable from "material-datatable";
  import loding from "../../assets/js/loding.json";
+ import QueueIcon from '@material-ui/icons/Queue';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 const cookies = new Cookies();
 
@@ -176,6 +177,105 @@ class Store extends Component {
             store: this.state.data[index].store.name,
             trigger_value: this.state.data[index].trigger_value,
             count: this.state.data[index].count,
+            add: ( <Component
+                initialState={{isShown: false,spin:false,errors:false,nwecount:''}}>
+                {({ state, setState }) => (
+                  <Pane>
+                    <Dialog
+                      isShown={state.isShown}
+                      onCloseComplete={() => setState({ isShown: false })}
+                      hasHeader={false}
+                      shouldCloseOnOverlayClick={false}
+                      confirmLabel=" حفظ"
+                      cancelLabel="الغاء"
+                      onConfirm={() => {
+                                       if (state.errors===true) {
+                    return(
+                       toast.error( `   يجب ان تكون الكمية المدخلة اكبر من الصفر` )
+                      );   
+                  }
+              else if (state.errors===false) {
+                        setState({ spin: true });
+                         var headers = {
+      Authorization: cookies.get("token")
+    };
+    axios({
+      url: Host + `inventories/append/${this.state.data[index].id}`,
+      method: "PUT",
+      headers: headers,
+      data: {
+        count: state.nwecount,
+       
+      }
+    })
+      .then(response => {
+        toast.success("  تم اضافة الكمية بنجاح ");
+        setState({ isShown: false });
+        setState({ spin: false });
+        this.componentDidMount();
+      })
+      .catch(function(error) {
+        setState({ spin: false });
+        if (error.response.data.error) {
+         toast.error("  تأكد من ادخال المعلومات ");
+        }
+      });
+                      }}}
+                    >
+                      <div>
+                        <div id="new_itemnav"> اضافة  كمية جديدة </div>
+                        <div className="mod1">
+                         
+                          <div style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-around",
+                              height: "60px",
+                              direction: "rtl",
+                              fontWeight: "600",
+                              fontSize: "18px",
+                              width: "100%"
+                            }} >
+                            <div style={{ width: "30%", textAlign: "center" }}> الكمية</div>
+                            <div style={{ width: "80%", textAlign: "center" }}>
+                              <input
+                                type="text"
+                                id="field2"
+                                placeholder="الكمية "
+                                value={state.nwecount}
+                                onChange={(e)=> {
+                                  setState({ nwecount: e.target.value });
+                                  if ( e.target.value < 1 ) {
+                                                     setState({errors: true});
+                                                    } else {
+                                                    setState({ errors: false});
+                                                    }
+                                }}
+                              />
+                            </div>
+                          </div>
+                              {state.spin ? (
+                                         <div style={{ width: "100%",position: "absolute"}}>
+                                           <Lottie
+                                             options={{
+                                               animationData: loding
+                                             }}
+                                             width={300}
+                                             height={150}
+                                             position="absolute"
+                                           />
+                                         </div>
+                                       ) : null}
+                        </div>
+                      </div>
+                    </Dialog>
+
+                    <div onClick={() => setState({ isShown: true })}>
+                      <QueueIcon style={{color:'#53955e',cursor:'pointer'}} />
+                    </div>
+                  </Pane>
+                )}
+            </Component>),
 
             delete: (
               <i
@@ -190,15 +290,16 @@ class Store extends Component {
               <Component
                 initialState={{
                   isShown: false,
-                  counts: res.data[index].count,
-                  trigger_values: res.data[index].trigger_value
+                  counts: this.state.data[index].count,
+                  trigger_values: res.data[index].trigger_value,
+                  spin:false,errors:false
                 }}
               >
                 {({ state, setState }) => (
                   <Pane>
                     <Dialog
                       isShown={state.isShown}
-                      onCloseComplete={() => setState({ isShown: false,spin:false,errors:false })}
+                      onCloseComplete={() => setState({ isShown: false })}
                       hasHeader={false}
                       shouldCloseOnOverlayClick={false}
                       confirmLabel=" حفظ"
@@ -219,8 +320,6 @@ class Store extends Component {
       method: "PUT",
       headers: headers,
       data: {
-        // item_id: this.state.item_id,
-        // store_id: this.state.store_id,
         count: state.counts,
         trigger_value:state.trigger_values,
       }
@@ -352,6 +451,7 @@ class Store extends Component {
     const columns = [
       { name: "حذف", field: "delete" },
       { name: "تعديل", field: "edit" },
+       { name: "اضافة كمية", field: "add" },
       { name: "  قيمة الاشعار", field: "trigger_value" },
       { name: " العدد المتوفر ", field: "count" },
       { name: " المخزن ", field: "store" },

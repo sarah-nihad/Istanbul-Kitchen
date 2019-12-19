@@ -10,13 +10,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react-web";
+ import loding from "../../assets/js/loding.json";
 import animation from "../../assets/js/animation.json";
 import Context from "../../assets/js/context";
 import MaterialDatatable from "material-datatable";
 import CloseIcon from "@material-ui/icons/Close";
 import DoneIcon from "@material-ui/icons/Done";
 import Select from "react-select";
- import loding from "../../assets/js/loding.json";
+
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 const cookies = new Cookies();
 
@@ -209,7 +210,7 @@ class Users extends Component {
                       onConfirm={() => {
                                               if (state.errors===true) {
                     return(
-                       toast.error( 'كلمة المرور قصيرة' )
+                       toast.error( ' كلمة المرور قصيرة او غير متطابقة' )
                       );   
                   }
               else if (state.errors===false) {
@@ -300,7 +301,7 @@ class Users extends Component {
                                 value={state.cpass}
                                 onChange={e =>{
                                  setState({ cpass: e.target.value })
-                                   if (e.target.value.length < 4) {
+                                   if (e.target.value.length < 4 || e.target.value != state.pass ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});
@@ -789,7 +790,7 @@ class Users extends Component {
                 />
                 <div id="main_row">
                   <div style={{ width: "100%" }}>
-                    <Component initialState={{ isShown: false,spin:false,errors:false }}>
+                    <Component initialState={{ isShown: false,spin:false,errors:false,errorsname:false }}>
                       {({ state, setState }) => (
                         <Pane>
                           <Dialog
@@ -800,12 +801,13 @@ class Users extends Component {
                             confirmLabel=" حفظ"
                             cancelLabel="الغاء"
                             onConfirm={() => {
-              if (state.errors===true) {
-                    return(
-                       toast.error( ` اسم المستخدم قصير او المعلومات غير مدخلة ` )
-                      );   
+              if (state.errors===true ) {
+                    return(toast.error( `     كلمة المرور قصيرة او غير متطابقة ` ));   
                   }
-              else if (state.errors===false) {
+                  else if (state.errorsname===true) {
+                    return(toast.error( `        اسم المستخدم او الاسم المدخل قصير ` ));  
+                  }
+              else if (state.errors===false && state.errorsname===false ) {
 
                               setState({ spin: true });
                                 let formData = new FormData();
@@ -866,9 +868,9 @@ class Users extends Component {
                                       onChange={e =>{
                                         this.setState({ username: e.target.value})
                                           if (e.target.value.length < 4) {
-                                                     setState({errors: true});
+                                                     setState({errorsname: true});
                                                     } else {
-                                                    setState({ errors: false});
+                                                    setState({ errorsname: false});
                                                     }
                                       }}/>
                                   </div>
@@ -900,9 +902,9 @@ class Users extends Component {
                                       onChange={e =>{
                                         this.setState({ name: e.target.value })
                                           if (e.target.value.length < 4) {
-                                                     setState({errors: true});
+                                                     setState({errorsname: true});
                                                     } else {
-                                                    setState({ errors: false});
+                                                    setState({ errorsname: false});
                                                     }
                                       }}
                                     />
@@ -948,6 +950,7 @@ class Users extends Component {
                                                     } else {
                                                     setState({ errors: false});
                                                     }
+                                                  
                                       }}
                                     />
                                   </div>
@@ -987,11 +990,12 @@ class Users extends Component {
                                       value={this.state.c_password}
                                       onChange={e =>{
                                         this.setState({ c_password: e.target.value})
-                                          if (e.target.value.length < 4) {
+                                          if (e.target.value.length < 4 || e.target.value.length != this.state.password ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});
                                                     }
+                                                   
                                       }}
                                     />{" "}
                                   </div>

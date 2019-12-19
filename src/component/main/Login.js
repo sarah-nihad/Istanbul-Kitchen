@@ -7,6 +7,8 @@ import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Lottie from "lottie-react-web";
+ import loding from "../../assets/js/loding.json";
 const cookies = new Cookies();
 
 class Login extends Component {
@@ -26,45 +28,7 @@ class Login extends Component {
 
   
 
-  login(e) {
-    
- e.preventDefault()
-      let formData = new FormData();
-          formData.append("username",this.state.username);
-        formData.append("password",this.state.password);
-      axios({
-        url: Host + `auth/login`,
-        method: "POST",
-
-        data: formData,
-        
-      })
-        .then(response => {
-          window.location.href = "/Dashboard";
-           let token="Bearer "+response.data.success.token
-           let role= response.data.success.userInfo.role.name
-           let names=response.data.success.userInfo.username
-          cookies.set("token",token,{
-            
-            path: "/",
-            expires: new Date(Date.now() + 60480000)
-    
-      });
-      cookies.set("names",names)
-       cookies.set("role",role)
-           console.log("ss",role)
-            this.setState({spin:false})
-        })
-        .catch(function(err) {
-         
-          if (err.response.data.Error) {
-            toast.error('تأكد من ادخال المعلومات')
-           
-          }
-          console.log(err.response.data.Error);
-            
-        });
-  }
+ 
 
   render() {
    
@@ -114,7 +78,7 @@ pauseOnHover
             نظام التعقب المخزني
           </div>
 
-          <div className="Sign_container">
+          <div className="Sign_container" style={{position:'relative'}} >
             <div className="up_field">
               <TextInput
                 id="field1"
@@ -212,13 +176,35 @@ pauseOnHover
                {state.spin===false ?(
 <div>تسجيل الدخول  </div>
                ):(
+                 <div>
                  <div> جاري تسجيل الدخول</div>
+                  <div style={{ width: "100%",position: "absolute",top:'102px',right:'-7px'}}>
+                                           <Lottie
+                                             options={{
+                                               animationData: loding
+                                             }}
+                                             width={300}
+                                             height={150}
+                                             position="absolute"
+                                           />
+                                         </div></div>
                ) } 
+
+
+
+
+
+
               </button> 
  
       
                 }
+                  
               </Component>
+
+  
+
+
 
             </div>
           </div>

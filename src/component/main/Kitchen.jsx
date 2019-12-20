@@ -1,11 +1,9 @@
 import React from 'react';
- import { Pane, Dialog, Button ,Spinner} from "evergreen-ui";
+ import { Pane, Dialog} from "evergreen-ui";
  import Component from "@reactions/component";
-import { Link ,NavLink} from 'react-router-dom'
-import TableKitchen from '../Table/TableKitchen';
+import {NavLink} from 'react-router-dom'
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import EditKitchen from "../common/EditKitchen";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
@@ -293,7 +291,7 @@ class Kitchen extends Component {
       responsive: "scroll",
       rowCursorHand: false,
       sort: false,
-      filter: true,
+      filter: false,
       download:false,
       textLabels: {
         body: {

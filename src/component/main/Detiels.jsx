@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
-import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react-web";
 import animation from "../../assets/js/animation.json";
 import Context from "../../assets/js/context";
+import { Redirect } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 const cookies = new Cookies();
 class Detiels extends Component {
@@ -16,7 +16,8 @@ class Detiels extends Component {
       details:[],
       data:[],
       user:'',
-      name:''
+      name:'',
+      check:''
     };
   }
 
@@ -38,8 +39,8 @@ class Detiels extends Component {
           details: res.data.data.details,
           check: "login"
         });
-        console.log(this.state.data);
-        console.log(this.state.details);
+        // console.log(this.state.data);
+        // console.log(this.state.details);
         
       })
            .catch(err => {
@@ -54,6 +55,14 @@ class Detiels extends Component {
 
   render() {
     return (
+       <Context.Consumer>
+        {ctx => {
+          if (this.state.check === "notlogin") {
+            return <Redirect to="/"></Redirect>;
+          } else if (
+                   this.state.check === "login" && cookies.get("role") !== "checker"
+                 ) {
+                   return (
       <div>
         <div id="kithead">
           <div id="row_kit">
@@ -77,8 +86,8 @@ class Detiels extends Component {
             <div id="kitmain">
               <div> تاريخ الانشاء : </div>
               <div style={{ paddingRight: 10 }}>
-                {" "}
-                {this.state.data1.created_at}{" "}
+              
+                {this.state.data1.created_at}
               </div>
             </div>
 
@@ -92,8 +101,8 @@ class Detiels extends Component {
         </div>
 
         <Row style={{ marginRight: 0 ,marginTop:25}}>
-          {this.state.details.map(p => (
-            <Col xs={12} md={6} lg={4}>
+          {this.state.details.map((p,i) => (
+            <Col xs={12} md={6} lg={4} key={i} >
               <div id="card_main1">
                 <div id="card_info">
                   <div id="item_text">
@@ -152,6 +161,29 @@ class Detiels extends Component {
           ))}
         </Row>
       </div>
+         );
+                 } else if (this.state.check === "") {
+                   return (
+                     <div
+                       style={{
+                         display: "flex",
+                         flexDirection: "column",
+                         alignItems: "center",
+                         justifyContent: "center"
+                       }}
+                     >
+                       <Lottie
+                         options={{
+                           animationData: animation
+                         }}
+                         width={300}
+                         height={300}
+                       />
+                     </div>
+                   );
+                 }
+        }}
+      </Context.Consumer>
     );
   }
 }

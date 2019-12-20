@@ -1,17 +1,12 @@
 import React ,{Component}from 'react';
-import { Link ,NavLink} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import {Row,Col} from 'react-bootstrap'
-import CloseIcon from '@material-ui/icons/Close';
 import { Redirect} from 'react-router-dom';
 import Lottie from 'lottie-react-web';
 import animation from '../../assets/js/animation.json';
 import Context from '../../assets/js/context';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import Cookies from "universal-cookie";
-import Host from "../../assets/js/Host";
-const cookies = new Cookies();
+
+
 class Notification extends Component {
   constructor(props) {
     super(props);
@@ -67,12 +62,12 @@ class Notification extends Component {
                   </div>
                   <div className="noti_body">
                     <div id="noti_body">
-                 <span>     اقتربت المادة</span>
-                    <span>  {ite.item.code}</span>
+                 <span  style={{marginBottom:5}}>     اقتربت المادة</span>
+                    <span  style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>  {ite.item.code}</span>
                 <span>       للنفاذ من المخزن </span>
-                    <span>   {ite.store.name}</span>
+                    <span  style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>   {ite.store.name}</span>
                  <span>     العدد المتبقي هو </span>
-                   <span>  {ite.count} </span> 
+                   <span style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>  {ite.count} </span> 
                     </div>
                   </div>
                 </div>

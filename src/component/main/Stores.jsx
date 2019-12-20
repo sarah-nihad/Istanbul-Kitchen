@@ -1,13 +1,10 @@
 import React from 'react';
- import { Pane, Dialog, Button } from "evergreen-ui";
+ import { Pane, Dialog} from "evergreen-ui";
  import Component from "@reactions/component";
  import loding from "../../assets/js/loding.json";
-import { Link ,NavLink} from 'react-router-dom'
-import StoresTable from '../Table/StoresTable';
-import NewStores from '../common/NewStores';
+import { NavLink} from 'react-router-dom'
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import StoresEdit from "../common/StoresEdit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
@@ -261,8 +258,12 @@ class Stores extends Component {
       headers: headers
     })
       .then(response => {
-        this.componentDidMount();
-        toast.success(" تم الحذف بنجاح ");
+        if (response.status === 202) {
+          toast.warning(" لا يمكنك الحذف  ");
+        } else if (response.status === 200) {
+          this.componentDidMount();
+          toast.success(" تم الحذف بنجاح ");
+        }
       })
       .catch(function(err) {
         console.log(err.response.data.Error);
@@ -311,7 +312,7 @@ class Stores extends Component {
       rowCursorHand: false,
       sort: false,
       responsive: "scroll",
-       filter: true,
+       filter: false,
       download:false,
       textLabels: {
         body: {

@@ -1,6 +1,6 @@
 import React  from "react";
-import { TextInput, toaster } from "evergreen-ui";
-import { Navbar, Nav,Button } from "react-bootstrap";
+import { TextInput } from "evergreen-ui";
+import { Navbar, Nav} from "react-bootstrap";
 import axios from "axios";
 import Component from "@reactions/component";
 import Cookies from "universal-cookie";
@@ -154,7 +154,7 @@ pauseOnHover
       });
       cookies.set("names",names)
        cookies.set("role",role)
-           console.log("ss",role)
+          //  console.log("ss",role)
            setState({spin:false})
         })
         .catch(function(err) {
@@ -163,7 +163,7 @@ pauseOnHover
             toast.error('تأكد من ادخال المعلومات')
            
           }
-          console.log(err.response.data.Error);
+          // console.log(err.response.data.Error);
             
         });
 

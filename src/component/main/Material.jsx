@@ -1,11 +1,9 @@
 import React from 'react';
- import { Pane, Dialog, Button } from "evergreen-ui";
+ import { Pane, Dialog } from "evergreen-ui";
  import Component from "@reactions/component";
-import { Link ,NavLink} from 'react-router-dom'
-import Mod2 from '../common/Mod2';
+import { NavLink} from 'react-router-dom'
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import EditMat from "../common/EditMat";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
@@ -46,7 +44,6 @@ class Material extends Component {
       data1: [],
       ids: "",
       check: "",
-      data: [],
       code: "",
       cat_id: "",
       cat_id1: "",
@@ -68,31 +65,10 @@ class Material extends Component {
       }
     });
 
-  edit(id) {
-    var headers = {
-      Authorization: cookies.get("token")
-    };
-    axios({
-      url: Host + `items/${id}`,
-      method: "PUT",
-      headers: headers,
-      data: {
-        code: this.state.sara,
-        cat_id: this.state.sara2
-      }
-    })
-      .then(response => {
-        toast.success("تم تعديل المعلومات بنجاح");
-        this.componentDidMount();
-      })
-      .catch(function(error) {
-        if (error.response.data.error) {
-          toast.error(" يجب عليك اجراء بعض التغيرات في قيمك للتحديث ");
-        }
-      });
-  }
+ 
 
   componentDidMount() {
+
       const { selectedOption } = this.state;
    axios
      .get(Host + "cats", {
@@ -158,7 +134,8 @@ class Material extends Component {
                 initialState={{
                   isShown: false,
                   codes: res.data.data[index].code,
-                  cats:res.data.data[index].cat.name,
+                  cats:res.data.data[index].cat.id,
+                  selectvlaue:'',
                   spin:false
                 }}
               >
@@ -183,7 +160,7 @@ class Material extends Component {
                            headers: headers,
                            data: {
                              code: state.codes,
-                             cat_id: this.state.sara2
+                             cat_id:state.cats
                            }
                          })
                            .then(response => {
@@ -202,6 +179,7 @@ class Material extends Component {
                            });
                       }}
                     >
+                    
                       <div>
                         <div id="new_itemnav"> تعديل المادة </div>
                         <div className="mod1">
@@ -227,7 +205,7 @@ class Material extends Component {
                                 value={state.codes}
                                 onChange={e => {
                                   setState({ codes: e.target.value });
-                                  this.setState({ sara: e.target.value });
+                                 
                                 }}
                               />
                             </div>
@@ -252,15 +230,17 @@ class Material extends Component {
                             <div style={{ width: "80%", textAlign: "center" }}>
                               <Select
                                 id="field2"
-                                placeholder=" الصنف "
-                                onChange={e => {
-                                  this.setState({ sara2: e.value });
+                             defaultValue={state.selectvlaue}
+                                   onChange={e => {
+                                  setState({ cats: e.value });
                                 }}
+                                
                                 value={selectedOption}
                                 styles={customStyles}
                                 options={this.state.catss}
                               />
                             </div>
+                         
                           </div>
                                  {state.spin ? (
                                          <div style={{ width: "100%",position: "absolute"}}>
@@ -278,7 +258,16 @@ class Material extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() => {
+
+                
+    
+                  let getIndex=this.state.catss.findIndex((element) => element.label === res.data.data[index].cat.name);
+
+                      setState({selectvlaue:this.state.catss[getIndex]})
+
+                      
+                      setState({ isShown: true })}}>
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -343,7 +332,7 @@ class Material extends Component {
       rowCursorHand: false,
       sort: false,
       responsive: "scroll",
-      filter: true,
+      filter: false,
       download:false,
       textLabels: {
         body: {

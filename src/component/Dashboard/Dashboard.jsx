@@ -1,6 +1,5 @@
 import React ,{Component}from 'react';
-import {Row,Col,ProgressBar} from 'react-bootstrap';
-import { Link ,NavLink} from 'react-router-dom';
+import {Row} from 'react-bootstrap';
 import GroupIcon from '@material-ui/icons/Group';
 import CategoryIcon from '@material-ui/icons/Category';
 import LocalGroceryStoreSharpIcon from '@material-ui/icons/LocalGroceryStoreSharp';

@@ -1,6 +1,5 @@
 
 import React from "react";
-import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import StoresEdit from '../common/StoresEdit';

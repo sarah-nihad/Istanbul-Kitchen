@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link ,NavLink} from 'react-router-dom'
-import AddStore from '../common/AddStore';
+import { NavLink} from 'react-router-dom'
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
-import { Pane, Dialog, Button } from "evergreen-ui";
+import { Pane, Dialog } from "evergreen-ui";
 import Component from "@reactions/component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -99,7 +98,7 @@ class Store extends Component {
   }
 
   componentDidMount() {
-    const { selectedOption } = this.state;
+   
 
     axios
       .get(Host + "items", {
@@ -290,13 +289,14 @@ class Store extends Component {
               <Component
                 initialState={{
                   isShown: false,
-                  counts: this.state.data[index].count,
+                  counts: '',
                   trigger_values: res.data[index].trigger_value,
                   spin:false,errors:false
                 }}
               >
                 {({ state, setState }) => (
                   <Pane>
+               
                     <Dialog
                       isShown={state.isShown}
                       onCloseComplete={() => setState({ isShown: false })}
@@ -422,7 +422,13 @@ class Store extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() => {
+                    
+                      
+                    setState({counts: res.data[index].count})
+                    console.log('sss',res.data[index].count)
+                    
+                    setState({ isShown: true })}}>
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -464,7 +470,7 @@ class Store extends Component {
       responsive: "scroll",
       rowCursorHand: false,
       sort: false,
-      filter: true,
+      filter: false,
       download:false,
       textLabels: {
         body: {
@@ -560,10 +566,13 @@ class Store extends Component {
       })
       .catch(function(error) {
         setState({ spin: false });
-        if (error.response) {
-          console.log(error.response.data.error);
+        if (error.response.data.Error) {
+          console.log(error.response.data.Error);
 
-          toast.error("تأكد من ادخال المعلومات");
+          toast.error(" هذا المخزون موجود بالفعل");
+        }
+        else if(error.response.data.error){
+toast.error(" تأكد من ادخال المعلومات");
         }
       });
                                    }}}
@@ -737,7 +746,7 @@ class Store extends Component {
                                              value={this.state.trigger_value33}
                                              onChange={e => {
                                                this.setState({trigger_value33: e.target.value});
-                                                   if ( e.target.value > this.state.count33 ) {
+                                                   if ( e.target.value >= this.state.count33 ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});

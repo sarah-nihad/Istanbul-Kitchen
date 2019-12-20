@@ -1,7 +1,7 @@
 import React from'react';
-import { Pane, Dialog, Button } from "evergreen-ui";
+import { Pane, Dialog } from "evergreen-ui";
 import Component from "@reactions/component";
-import { Link ,NavLink} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Show from "../common/Show";
@@ -252,7 +252,7 @@ class Department extends Component {
       responsive: "scroll",
       rowCursorHand: false,
       sort: false,
-      filter: true,
+      filter: false,
       download:false,
       textLabels: {
         body: {

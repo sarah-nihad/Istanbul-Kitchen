@@ -1,6 +1,5 @@
 import React ,{Component} from 'react';
 import Login from './component/main/Login';
-import Si from './component/common/Si';
 import Nav2 from './component/common/Nav2';
 import {BrowserRouter,Route, Switch} from 'react-router-dom';
 import './App.css';
@@ -41,8 +40,8 @@ else{
       che:'notlogin',
     })
 }
-
-    axios
+setInterval(() => {
+   axios
       .get(Host + "notifications", {
         headers: {
           Authorization: cookies.get("token"),
@@ -63,8 +62,10 @@ else{
     })
       });
 
-  axios
-      .get(Host + "statistics", {
+ 
+}, 6000);
+   
+       axios.get(Host + "statistics", {
         headers: {
           Authorization: cookies.get("token"),
           Accept: "application/json"

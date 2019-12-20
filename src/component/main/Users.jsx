@@ -1,14 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import ModUser from "../common/ModUser";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Component from "@reactions/component";
-import { Pane, Dialog, Button, Spinner } from "evergreen-ui";
+import { Pane, Dialog,  Spinner } from "evergreen-ui";
 import Cookies from "universal-cookie";
 import Host from "../../assets/js/Host";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Redirect } from "react-router-dom";
 import Lottie from "lottie-react-web";
  import loding from "../../assets/js/loding.json";
 import animation from "../../assets/js/animation.json";
@@ -301,7 +299,7 @@ class Users extends Component {
                                 value={state.cpass}
                                 onChange={e =>{
                                  setState({ cpass: e.target.value })
-                                   if (e.target.value.length < 4 || e.target.value != state.pass ) {
+                                   if (e.target.value.length < 4 || e.target.value !== state.pass ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});
@@ -340,8 +338,9 @@ class Users extends Component {
             status: (
               <Component initialState={{ isShown: true, spin: false }}>
                 {({ state, setState }) =>
-                  state.spin ? (
-                    <Spinner size={16} />
+                   state.spin ? (
+                 
+                    <div style={{display:'flex',justifyContent:'center',alignItems:'center'}} >  <Spinner size={16} /></div>
                   ) : this.state.uss[index].status == 1 ? (
                     <DoneIcon
                       style={{
@@ -428,9 +427,11 @@ class Users extends Component {
                   isShown: false,
                   names: res.data.data[index].name,
                   usernames: res.data.data[index].username,
-                  depas: res.data.data[index].dept.name,
-                  roles: res.data.data[index].role.name,
-                  spin:false,errors:false
+                  depas: '',
+                  roles: '',
+                  spin:false,errors:false,
+                  dep:res.data.data[index].dept.id,
+                  rol:res.data.data[index].role.id
                 }}
               >
                 {({ state, setState }) => (
@@ -461,8 +462,8 @@ class Users extends Component {
                           data: {
                             username: state.usernames,
                             name: state.names,
-                            dept_id: this.state.dept_id,
-                            role_id: this.state.role_id
+                            dept_id:state.dep,
+                            role_id:state.rol
                           }
                         })
                           .then(response => {
@@ -474,7 +475,7 @@ class Users extends Component {
                           .catch(function(error) {
                             setState({ spin: false });
                             if (error.response.data.error) {
-                              toast.error("تأكد من صحة المعلومات");
+                              toast.error(" قم بتغيير المعلومات من اجل تعديلها");
                             }
                           });
                       }}}
@@ -563,11 +564,10 @@ class Users extends Component {
                               <Select
                                 id="field2"
                                 placeholder=" القسم   "
-                                onChange={e => {
-                                  this.setState({
-                                    dept_id: e.value
-                                  });
+                                  onChange={e => {
+                                  setState({ dep: e.value });
                                 }}
+                                defaultValue={state.depas}
                                 value={selectedOption}
                                 styles={customStyles}
                                 options={this.state.dapts}
@@ -593,10 +593,11 @@ class Users extends Component {
                                 id="field2"
                                 placeholder=" الصلاحية   "
                                 onChange={e => {
-                                  this.setState({
-                                    role_id: e.value
+                                 setState({
+                                    rol: e.value
                                   });
                                 }}
+                                defaultValue={state.roles}
                                 value={selectedOption}
                                 styles={customStyles}
                                 options={this.state.rolees}
@@ -619,7 +620,19 @@ class Users extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() =>{
+                     setState({ isShown: true })
+                       let getIndex=this.state.dapts.findIndex((element) => element.label === res.data.data[index].dept.name)
+                       
+                        const getIndex1=this.state.rolees.findIndex((element) => element.label === res.data.data[index].role.name)
+                      setState({depas:this.state.dapts[getIndex]})
+                     
+                      // console.log(res.data.data[index].dept.id);
+                      
+                      setState({roles:this.state.rolees[getIndex1]})
+                
+                    }}>
+
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -641,54 +654,7 @@ class Users extends Component {
       });
   }
 
-  done(id) {
-    var headers = {
-      Authorization: cookies.get("token")
-    };
-    axios({
-      url: Host + `auth/block/${id}`,
-      method: "PUT",
-      headers: headers,
-      data: {
-        status: "0"
-      }
-    })
-      .then(response => {
-        toast.success("تم حظر المستخدم");
-        this.setState({ spin: false });
-        this.componentDidMount();
-      })
-      .catch(function(error) {
-        if (error.response.data.Error) {
-          toast.error(error.response.data.Error);
-        }
-      });
-  }
-
-  block(id) {
-    var headers = {
-      Authorization: cookies.get("token")
-    };
-    axios({
-      url: Host + `auth/block/${id}`,
-      method: "PUT",
-      headers: headers,
-      data: {
-        status: "1"
-      }
-    })
-      .then(response => {
-        toast.success("تم تفعيل المستخدم");
-        this.setState({ spin: false });
-        this.componentDidMount();
-      })
-      .catch(function(error) {
-        if (error.response.data.Error) {
-          toast.error(error.response.data.Error);
-        }
-      });
-  }
-
+ 
   delete(id) {
     let formData = new FormData();
     var headers = {
@@ -901,7 +867,7 @@ class Users extends Component {
                                       value={this.state.name}
                                       onChange={e =>{
                                         this.setState({ name: e.target.value })
-                                          if (e.target.value.length < 4) {
+                                          if (e.target.value.length < 2) {
                                                      setState({errorsname: true});
                                                     } else {
                                                     setState({ errorsname: false});
@@ -990,7 +956,7 @@ class Users extends Component {
                                       value={this.state.c_password}
                                       onChange={e =>{
                                         this.setState({ c_password: e.target.value})
-                                          if (e.target.value.length < 4 || e.target.value.length != this.state.password ) {
+                                          if (e.target.value.length < 4 || e.target.value.length !== this.state.password ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});

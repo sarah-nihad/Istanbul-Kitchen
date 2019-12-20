@@ -1,8 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import MaterialDatatable from "material-datatable";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import EditUser from '../common/EditUser';
 import EditKitchen from '../common/EditKitchen';
 import axios from "axios";
 import Cookies from "universal-cookie";

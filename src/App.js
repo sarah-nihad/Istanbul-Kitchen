@@ -40,6 +40,9 @@ else{
       che:'notlogin',
     })
 }
+
+
+if (cookies.get("token")) {
 setInterval(() => {
    axios
       .get(Host + "notifications", {
@@ -64,6 +67,8 @@ setInterval(() => {
 
  
 }, 6000);
+
+
    
        axios.get(Host + "statistics", {
         headers: {
@@ -89,7 +94,7 @@ setInterval(() => {
 
 
 
-
+}
 
 
 

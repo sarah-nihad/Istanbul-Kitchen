@@ -269,7 +269,7 @@ this.setState({spinadd:false})
           allkoms: res.data.data.kitchen
         });
         this.setState({spin:false})
-        console.log("kmos",this.state.kmos.length);
+        console.log("kmos",this.state.kmos);
       })
       .catch(err => {
         this.setState({spin:false})
@@ -468,7 +468,7 @@ this.setState({spinadd:false})
                               cancelLabel="الغاء"
                               onConfirm={() => {
                                  if (state.errors===true) {
-                    return( toast.error( `   يجب ان تكون الكمية المدخلة اكبر من الصفر` ));   
+                    return( toast.error( ` يجب ان تكون الكمية المدخلة اكبر من الصفر واقل من الموجود بالمخزن` ));   
                   }
               else if (state.errors===false) {
                                 setState({ spin: true });
@@ -495,6 +495,7 @@ this.setState({spinadd:false})
         if (error.response.data.Error) {
           toast.error(' قم بأجراء تغيير على الكمية من اجل تعديلها');
         }
+      
       });
                      }}}
                             >
@@ -541,7 +542,9 @@ this.setState({spinadd:false})
                                           value={state.count}
                                           onChange={e => {
                                            setState({count: e.target.value});
-                                            if (e.target.value < 1) {
+                                            if (e.target.value < 1 || e.target.value > p.inventory.count){
+          
+      
                                               setState({errors:true})
                                             }
                                             else{
@@ -741,12 +744,16 @@ this.setState({spinadd:false})
                 value={this.state.num}
                 onChange={e => {
                   this.setState({ num: e.target.value });
-                  if (e.target.value > this.state.trigger) {
+                  if (e.target.value > this.state.trigger && this.state.trigger!== 0) {
                     this.setState({ errors: true });
-                    toast.error(
-                      `يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`
-                    );
-                  } else {
+                    toast.error(`يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`);
+                  } 
+                  else if (this.state.trigger ===0 ) {
+                     toast.error(`لايوجد مواد في المخزن`);
+                     this.setState({ errors: true });
+                  }
+                  
+                  else {
                     this.setState({ errors: false });
                   }
                 }}
@@ -759,7 +766,7 @@ this.setState({spinadd:false})
                 onClick={() => {
                   if (this.state.errors === true) {
                     return toast.error(
-                      `يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`
+                      `خطأ في الكمية المدخلة`
                     );
                   } else if (this.state.errors === false) {
                     this.setState({spinadd:true})

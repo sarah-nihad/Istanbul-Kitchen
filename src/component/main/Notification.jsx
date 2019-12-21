@@ -67,7 +67,11 @@ class Notification extends Component {
                 <span>       للنفاذ من المخزن </span>
                     <span  style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>   {ite.store.name}</span>
                  <span>     العدد المتبقي هو </span>
-                   <span style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>  {ite.count} </span> 
+                   <span style={{color:'rgb(167, 48, 44)',fontWeight:'bolder',fontSize:'20px'}}>  {ite.count} </span> 
+                   <div>  
+                      <span>     قيمة التنبيه </span>
+                       <span style={{color:'rgb(84, 170, 182)',fontWeight:'bolder',fontSize:'20px'}}>  {ite.trigger_value} </span> 
+                     </div>
                     </div>
                   </div>
                 </div>

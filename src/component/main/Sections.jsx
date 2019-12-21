@@ -157,7 +157,7 @@ class Section extends Component {
                          };
                          axios({
                            url: Host + `cats/${this.state.data1[index].id}`,
-                           method: "PATCH",
+                           method: "PUT",
                            headers: headers,
                            data: {
                              name:state.names,

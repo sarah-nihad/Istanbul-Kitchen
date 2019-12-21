@@ -803,10 +803,15 @@ class Users extends Component {
       })
       .catch(function(error) {
          setState({ spin: false });
-        if (error.response) {
+        if (error.response.data.Error) {
           console.log(error.response.data.Error);
 
           toast.error('تأكد من ادخال المعلومات');
+        }
+         else if (error.response.data.error.username) {
+          console.log(error.response.data.error.username);
+
+          toast.error('اسم المستخدم موجود بالفعل');
         }
       });
                             }}}
@@ -956,7 +961,7 @@ class Users extends Component {
                                       value={this.state.c_password}
                                       onChange={e =>{
                                         this.setState({ c_password: e.target.value})
-                                          if (e.target.value.length < 4 || e.target.value.length !== this.state.password ) {
+                                          if (e.target.value.length < 4 || e.target.value !== this.state.password ) {
                                                      setState({errors: true});
                                                     } else {
                                                     setState({ errors: false});

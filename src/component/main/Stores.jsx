@@ -26,7 +26,8 @@ class Stores extends Component {
       ids: "",
       check: "",
       location22: "",
-      name2: ""
+      name2: "",
+      location:''
     };
   }
 
@@ -398,11 +399,8 @@ class Stores extends Component {
                                        Accept: "application/json",
                                        Authorization: cookies.get("token")
                                      };
-                                     formData.append("name", this.state.name);
-                                     formData.append(
-                                       "location",
-                                       this.state.location
-                                     );
+                                     formData.append("name",this.state.name);
+                                     formData.append("location",this.state.location);
                                      axios({
                                        url: Host + `stores`,
                                        method: "POST",

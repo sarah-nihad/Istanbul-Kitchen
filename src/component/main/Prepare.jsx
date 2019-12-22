@@ -77,7 +77,8 @@ class Prepare extends React.Component {
       check:'',
       spin:false,
       spinitem:false,
-      spinadd:false
+      spinadd:false,
+      spindel:false
     };
   }
 
@@ -142,9 +143,11 @@ this.setState({spinadd:false})
       })
       .catch(err => {
         console.log("error:", err);
-          this.setState({
-          check: "notlogin"
-        });
+          this.setState({check: "notlogin"});
+           if (err.response.status === 403 || err.response.status === 401 ) {
+         cookies.remove("token");
+                  window.location.href= "/" 
+          }
       });
 
     axios
@@ -304,6 +307,7 @@ this.setState({spinadd:false})
       headers: headers
     })
       .then(response => {
+        this.setState({spindel:false});
         if (response.status === 202) {
           toast.warning(" لا يمكنك الحذف  ");
         } else if (response.status === 200) {
@@ -312,6 +316,7 @@ this.setState({spinadd:false})
         }
       })
       .catch(function(err) {
+         this.setState({spindel:false});
         console.log(err.response.data.Error);
       });
   }
@@ -441,17 +446,36 @@ this.setState({spinadd:false})
                               />
                             </div>
                           ) : ( <div>
+                               {this.state.spindel ? (
+                            <div
+                              style={{
+                                width: "100%",
+                                position: "absolute",
+                              }}>
+                              <Lottie
+                                options={{
+                                  animationData: loding
+                                }}
+                                width={300}
+                                height={150}
+                                position="absolute"
+                              />
+                            </div>
+                          ) : ( null)}
               {this.state.kmos.map((p,i) => (
                 <div id="card_main1" key={i} >
                   <div id="card_titil">
                     <div style={{ fontSize: 15, color: "#256197" }}>
+
                       <i
                         className="far fa-trash-alt"
                         id="del"
                         onClick={() => {
                           this.delete(p.id);
+                           this.setState({spindel:true});
                         }}
                       ></i>{" "}
+                    
                     </div>
                     <div style={{ paddingLeft: 10 }}>
                       <Component initialState={{ isShown: false,spin:false,errors:false,count:p.count }}>

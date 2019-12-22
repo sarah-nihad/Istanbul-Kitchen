@@ -42,7 +42,7 @@ else{
 }
 
 
-if (cookies.get("token")) {
+if (cookies.get("token") &&  cookies.get("role") !=='Checker' &&  cookies.get("role") !=='Designer' ) {
 setInterval(() => {
    axios
       .get(Host + "notifications", {

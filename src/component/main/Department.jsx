@@ -207,9 +207,11 @@ class Department extends Component {
       })
       .catch(err => {
         console.log("error:", err);
-        this.setState({
-          check: "notlogin"
-        });
+        this.setState({check: "notlogin"});
+           if (err.response.status === 403 || err.response.status === 401 ) {
+         cookies.remove("token");
+                  window.location.href= "/" 
+          }
       });
   }
 

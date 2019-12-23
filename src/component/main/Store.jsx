@@ -538,12 +538,16 @@ class Store extends Component {
                                    confirmLabel=" حفظ"
                                    cancelLabel="الغاء"
                                    onConfirm={() => {
-                                                         if (state.errors===true) {
-                    return(
+
+                                        if (Number(this.state.trigger_value33) > Number(this.state.count33)) {
+                                                    
+                                                       return(
                        toast.error( `  يجب ان تكون قيمة الاشعار اقل من العدد المتوفر` )
-                      );   
-                  }
-              else if (state.errors===false) {
+                      );
+                                                    } 
+                     
+                 
+              else  {
                                      setState({ spin: true });
                                     let formData = new FormData();
     var headers = {
@@ -701,13 +705,13 @@ toast.error(" تأكد من ادخال المعلومات");
                                            }}
                                          >
                                            <input
-                                             type="text"
+                                             type="number"
                                              id="field2"
                                              placeholder=" العدد المتوفر   "
                                              value={this.state.count33}
                                              onChange={e => {
                                                this.setState({
-                                                 count33: e.target.value
+                                                 count33:e.target.value
                                                });
                                              }}
                                            />
@@ -742,17 +746,12 @@ toast.error(" تأكد من ادخال المعلومات");
                                            }}
                                          >
                                            <input
-                                             type="text"
+                                             type="number"
                                              id="field2"
                                              placeholder="قيمة الاشعار"
                                              value={this.state.trigger_value33}
                                              onChange={e => {
                                                this.setState({trigger_value33: e.target.value});
-                                                   if ( e.target.value >= this.state.count33 ) {
-                                                     setState({errors: true});
-                                                    } else {
-                                                    setState({ errors: false});
-                                                    }
                                              }}
                                            />
                                          </div>

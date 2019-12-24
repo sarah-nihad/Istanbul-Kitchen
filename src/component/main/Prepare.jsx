@@ -491,10 +491,12 @@ this.setState({spinadd:false})
                               confirmLabel=" حفظ"
                               cancelLabel="الغاء"
                               onConfirm={() => {
-                                 if (state.errors===true) {
-                    return( toast.error( ` يجب ان تكون الكمية المدخلة اكبر من الصفر واقل من الموجود بالمخزن` ));   
+                                     if (state.count < 1 || state.count > p.inventory.count){
+                                       return( 
+                                         toast.error( `  يجب ان تكون الكمية المدخلة اكبر من الصفر واقل من ${p.inventory.count}` )
+                                         );           
                   }
-              else if (state.errors===false) {
+              else {
                                 setState({ spin: true });
                                 // this.edit(p.id);
                                  var headers = {
@@ -560,20 +562,13 @@ this.setState({spinadd:false})
 
                                       <div style={{width: "55%", textAlign: "center"}} >
                                         <input
-                                          type="text"
+                                          type="number"
                                           id="field2"
                                           placeholder="الكمية"
                                           value={state.count}
                                           onChange={e => {
                                            setState({count: e.target.value});
-                                            if (e.target.value < 1 || e.target.value > p.inventory.count){
-          
-      
-                                              setState({errors:true})
-                                            }
-                                            else{
-                                              setState({errors:false})
-                                            }
+                                       
                                           }}
                                         />
                                       </div>
@@ -762,24 +757,13 @@ this.setState({spinadd:false})
             <div id="div_kitch">
               <div id="kitch_sid"> الكمية </div>
               <input
-                type="text"
+                type="number"
                 id="kitchen_field"
                 placeholder=" الكمية "
                 value={this.state.num}
                 onChange={e => {
                   this.setState({ num: e.target.value });
-                  if (e.target.value > this.state.trigger && this.state.trigger!== 0) {
-                    this.setState({ errors: true });
-                    toast.error(`يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`);
-                  } 
-                  else if (this.state.trigger ===0 ) {
-                     toast.error(`لايوجد مواد في المخزن`);
-                     this.setState({ errors: true });
-                  }
-                  
-                  else {
-                    this.setState({ errors: false });
-                  }
+                
                 }}
               />
             </div>
@@ -788,11 +772,17 @@ this.setState({spinadd:false})
               <div
                 id="add"
                 onClick={() => {
-                  if (this.state.errors === true) {
-                    return toast.error(
-                      `خطأ في الكمية المدخلة`
+  if (this.state.num > this.state.trigger && this.state.trigger!== 0) {
+                   return(
+                    toast.error(`يجب ان تكون الكمية المطلوبة اقل من${this.state.trigger}`) );
+                  } 
+                  if (this.state.trigger ===0 ) {
+                    return (
+                     toast.error(`لايوجد مواد في المخزن`)
                     );
-                  } else if (this.state.errors === false) {
+                  }
+                                
+                else {
                     this.setState({spinadd:true})
                     this.newitem();
                   }

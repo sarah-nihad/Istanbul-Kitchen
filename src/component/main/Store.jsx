@@ -238,7 +238,7 @@ class Store extends Component {
                             <div style={{ width: "30%", textAlign: "center" }}> الكمية</div>
                             <div style={{ width: "80%", textAlign: "center" }}>
                               <input
-                                type="text"
+                                type="number"
                                 id="field2"
                                 placeholder="الكمية "
                                 value={state.nwecount}
@@ -305,12 +305,13 @@ class Store extends Component {
                       confirmLabel=" حفظ"
                       cancelLabel="الغاء"
                       onConfirm={() => {
-                                       if (state.errors===true) {
+                                        if ( state.trigger_value > state.counts ) {
+                                                 
                     return(
                        toast.error( `  يجب ان تكون قيمة الاشعار اقل من العدد المتوفر` )
                       );   
                   }
-              else if (state.errors===false) {
+              else {
                         setState({ spin: true });
                          var headers = {
       Authorization: cookies.get("token")
@@ -339,7 +340,7 @@ class Store extends Component {
                       }}}
                     >
                       <div>
-                        <div id="new_itemnav"> اضافة مخزون جديد </div>
+                        <div id="new_itemnav"> تعديل بيانات المخزون  </div>
                         <div className="mod1">
                           <div
                             style={{
@@ -366,7 +367,7 @@ class Store extends Component {
                               }}
                             >
                               <input
-                                type="text"
+                                type="number"
                                 id="field2"
                                 placeholder=" العدد المتوفر   "
                                 value={state.counts}
@@ -391,17 +392,13 @@ class Store extends Component {
                             <div style={{ width: "30%", textAlign: "center" }}> قيمة الاشعار</div>
                             <div style={{ width: "80%", textAlign: "center" }}>
                               <input
-                                type="text"
+                                type="number"
                                 id="field2"
                                 placeholder="قيمة الاشعار"
                                 value={state.trigger_values}
                                 onChange={(e)=> {
                                   setState({ trigger_values: e.target.value });
-                                  if ( e.target.value > state.counts ) {
-                                                     setState({errors: true});
-                                                    } else {
-                                                    setState({ errors: false});
-                                                    }
+                                
                                 }}
                               />
                             </div>

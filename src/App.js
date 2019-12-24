@@ -66,7 +66,7 @@ setInterval(() => {
       });
 
  
-}, 6000);
+}, 30000);
 
 
    
@@ -92,6 +92,32 @@ setInterval(() => {
       });
 
 
+  axios
+      .get(Host + "notifications", {
+        headers: {
+          Authorization: cookies.get("token"),
+          Accept: "application/json"
+        }
+      })
+      .then(res => {
+        this.setState({
+          data: res.data.data.notifications,
+          ms:res.data.data.msg,
+              check:'login',
+        });
+      })
+      .catch(err => {
+        console.log("error:", err);
+          this.setState({
+      check:'notlogin',
+    })
+      });
+
+
+
+
+
+
 
 
 }
@@ -111,7 +137,7 @@ setInterval(() => {
 
 render() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
      <Context.Provider value={{
             value: this.state,
             action: {

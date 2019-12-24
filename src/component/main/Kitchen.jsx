@@ -125,7 +125,7 @@ class Kitchen extends Component {
               <VisibilityIcon
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  window.location.href = `/Detiels/?id=${this.state.data1[index].id}`;
+                  window.location.href = `/Detiels?id=${this.state.data1[index].id}`;
                 }}
               />
             ),

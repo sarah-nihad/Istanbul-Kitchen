@@ -629,7 +629,9 @@ class Users extends Component {
                      
                       // console.log(res.data.data[index].dept.id);
                       
-                      setState({roles:this.state.rolees[getIndex1]})
+                      setState({roles:this.state.rolees[getIndex1], 
+                      names: res.data.data[index].name,
+                  usernames: res.data.data[index].username,})
                 
                     }}>
 
@@ -702,6 +704,7 @@ class Users extends Component {
       rowCursorHand: false,
       sort: false,
       filter: true,
+       rowsPerPageOptions:[5,10,50,100],
       download:false,
       textLabels: {
         body: {

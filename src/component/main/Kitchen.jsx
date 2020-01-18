@@ -227,7 +227,9 @@ class Kitchen extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() => {
+                      setState({kitIDs: res.data[index].kitID})
+                      setState({ isShown: true })}}>
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -292,6 +294,7 @@ class Kitchen extends Component {
       print: false,
       responsive: "scroll",
       rowCursorHand: false,
+      rowsPerPageOptions:[5,10,50,100],
       sort: false,
       filter: false,
       download:false,

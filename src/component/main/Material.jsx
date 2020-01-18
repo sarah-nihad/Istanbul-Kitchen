@@ -265,6 +265,8 @@ class Material extends Component {
                   let getIndex=this.state.catss.findIndex((element) => element.label === res.data.data[index].cat.name);
 
                       setState({selectvlaue:this.state.catss[getIndex]})
+                      console.log(res.data.data[index].code);
+                      setState({codes:res.data.data[index].code})
 
                       
                       setState({ isShown: true })}}>

@@ -191,7 +191,10 @@ class Department extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() => {
+                      setState({ names: res.data.data[index].name,
+                  descrs: res.data.data[index].descr})
+                      setState({ isShown: true })}}>
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -255,6 +258,7 @@ class Department extends Component {
       rowCursorHand: false,
       sort: false,
       filter: false,
+       rowsPerPageOptions:[5,10,50,100],
       download:false,
       textLabels: {
         body: {

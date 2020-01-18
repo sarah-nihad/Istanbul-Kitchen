@@ -95,8 +95,9 @@ const cookies = new Cookies();
                          width: "100%"
                        }}
                      >
+                     
                        <div style={{ width: "30%", textAlign: "center" }}>
-                         {" "}
+                       
                          اسم الصنف{" "}
                        </div>
                        <div style={{ width: "80%", textAlign: "center" }}>

@@ -224,7 +224,11 @@ class Stores extends Component {
                       </div>
                     </Dialog>
 
-                    <div onClick={() => setState({ isShown: true })}>
+                    <div onClick={() =>{
+                    setState({ names: res.data[index].name,
+                  locations: res.data[index].location})
+                     setState({ isShown: true })}}>
+
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
                   </Pane>
@@ -317,6 +321,7 @@ class Stores extends Component {
       responsive: "scroll",
        filter: false,
       download:false,
+      rowsPerPageOptions:[5,10,50,100],
       textLabels: {
         body: {
           noMatch: "  لم يتم العثور على سجلات مطابقة",

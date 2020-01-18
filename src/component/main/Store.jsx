@@ -424,7 +424,8 @@ class Store extends Component {
                       
                     setState({counts: res.data[index].count})
                     console.log('sss',res.data[index].count)
-                    
+                    console.log(res.data[index].trigger_value)
+                    setState({trigger_values:res.data[index].trigger_value})
                     setState({ isShown: true })}}>
                       <i className="fas fa-edit" id="edit"></i>
                     </div>
@@ -471,6 +472,7 @@ class Store extends Component {
       sort: false,
       filter: false,
       download:false,
+      rowsPerPageOptions:[5,10,50,100],
       textLabels: {
         body: {
           noMatch: " لم يتم العثور على سجلات مطابقة",

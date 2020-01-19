@@ -180,6 +180,7 @@ pauseOnHover
                ):(
                  <div>
                  <div> جاري تسجيل الدخول</div>
+                
                   <div style={{ width: "100%",position: "absolute",top:'102px',right:'-7px'}}>
                                            <Lottie
                                              options={{
@@ -198,7 +199,6 @@ pauseOnHover
 
 
               </button> 
- 
       
                 }
                   
@@ -211,11 +211,22 @@ pauseOnHover
             </div>
           </div>
 
-          <div
+<div
             style={{
               fontSize: 18,
               color: "#707070",
               marginTop: 30,
+              padding: 5,
+              textAlign: "center"
+            }}
+          >
+            v1.0.0
+          </div>
+          <div
+            style={{
+              fontSize: 18,
+              color: "#707070",
+              marginTop: 5,
               padding: 5,
               textAlign: "center"
             }}
